@@ -1,4 +1,4 @@
-# OAuth 2.0 Client Interface
+# OAuth 2.0 Client Dashboard
 
 ## Overview
 
@@ -46,4 +46,4 @@ Ensure you have the following tools installed:
    ```bash
    npm run dev
    ```
-5. Visit the application in your browser at http://localhost:3020:
+5. Visit the application in your browser at http://localhost:3020
