@@ -1,0 +1,12 @@
+.page-layout {
+  @apply flex h-full min-h-screen w-full;
+}
+
+.page-layout__content {
+  @apply w-full min-w-[calc(100%-var(--sidebar-width))] bg-root;
+}
+
+main {
+  @apply flex flex-col p-5;
+  min-height: calc(100vh - var(--header-height));
+}
