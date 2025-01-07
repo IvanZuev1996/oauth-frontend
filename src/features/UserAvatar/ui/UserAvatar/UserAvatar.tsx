@@ -34,6 +34,7 @@ export const UserAvatar: FC<DefaultAvatarProps> = (props) => {
     name: 'Зуев Иван',
     login: 'login',
     telegram: 'grubinsky1604',
+    email: 'ivan-zuev-97@mail.ru',
     createdAt: new Date(),
     updatedAt: new Date(),
     roleId: 1,

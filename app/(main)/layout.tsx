@@ -3,7 +3,8 @@ import { cookies } from 'next/headers';
 
 import { PageLayout } from '@/app/layouts/PageLayout/PageLayout';
 import { MainProvider } from '@/app/providers/MainProvider';
-import '../src/app/styles/index.css';
+
+import '../../src/app/styles/index.css';
 
 const inter = Inter({ subsets: ['cyrillic'], variable: '--font-inter' });
 

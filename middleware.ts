@@ -5,28 +5,26 @@ import {
 } from 'next/dist/server/web/spec-extension/cookies';
 import { type NextRequest, NextResponse } from 'next/server';
 
+import { AccessTokenPayload, AuthBackendResponse } from '@/entities/User';
 import { cookieOptions } from '@/shared/config/cookies/cookiesOptions';
+import {
+  apiRoutes,
+  authPageRoutes,
+  routeConfig,
+} from '@/shared/config/router/routeConfig';
 import { accessTokenSecret, backendUrl } from '@/shared/const/system';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-interface AuthBackendResponse {
-  type: string;
-  access_token: string;
-  refresh_token: string;
-}
-
-export interface AccessTokenPayload {
-  user_id: number;
-  service: string;
-  login: string;
-  iat: number;
-  exp: number;
-}
-
-function applySetCookie(req: NextRequest, res: NextResponse): void {
+/**
+ * Костыль для патча кук и заголовков
+ */
+function applySetCookieAndHeaders(req: NextRequest, res: NextResponse): void {
   const setCookies = new ResponseCookies(res.headers);
   const newReqHeaders = new Headers(req.headers);
+
+  newReqHeaders.set('x-middleware-request-data', 'hello');
+
   const newReqCookies = new RequestCookies(newReqHeaders);
   setCookies.getAll().forEach((cookie) => newReqCookies.set(cookie));
   NextResponse.next({
@@ -86,55 +84,59 @@ const refreshTokenHandler = async (
 };
 
 export async function middleware(request: NextRequest) {
-  return NextResponse.next();
   const { pathname } = request.nextUrl;
 
-  const refresh_token = request.cookies.get('refresh_token')?.value;
-  const access_token = request.cookies.get('access_token')?.value;
+  const signinUrl = new URL(routeConfig.signIn, request.url);
+  const mainUrl = new URL(routeConfig.main, request.url);
 
+  const refreshToken = request.cookies.get('refresh_token')?.value;
+  const accessToken = request.cookies.get('access_token')?.value;
+
+  /* Ignore static and API routes */
   if (
     pathname.startsWith('/.next') ||
     pathname.startsWith('/static') ||
-    pathname.startsWith('/auth/refresh-token') ||
-    PUBLIC_FILE.test(pathname)
+    PUBLIC_FILE.test(pathname) ||
+    apiRoutes.includes(pathname)
   ) {
     return NextResponse.next();
   }
 
-  if (!access_token || !refresh_token) {
-    return NextResponse.redirect('/');
-  }
-
-  const data = await refreshTokenHandler(access_token, refresh_token);
-
-  if (data.isError) {
-    const options = {
-      ...cookieOptions,
-      maxAge: -1,
-    };
-    const response = NextResponse.redirect('/');
-    response.cookies.set('access_token', '', options);
-    response.cookies.set('refresh_token', '', {
-      ...options,
-      httpOnly: true,
-    });
-    applySetCookie(request, response);
+  /* Auth routes */
+  if (authPageRoutes.includes(pathname)) {
+    if (accessToken && refreshToken) return NextResponse.redirect(mainUrl);
+    const response = NextResponse.next();
+    response.headers.set('x-ignore-theme', 'ignore');
     return response;
   }
 
+  if (!accessToken || !refreshToken) return NextResponse.redirect(signinUrl);
+  const data = await refreshTokenHandler(accessToken, refreshToken);
+
+  /* Refresh token error */
+  if (data.isError) {
+    const options = { ...cookieOptions, maxAge: -1 };
+    const response = NextResponse.redirect(signinUrl);
+    response.cookies.set('access_token', '', options);
+    response.cookies.set('refresh_token', '', { ...options, httpOnly: true });
+    applySetCookieAndHeaders(request, response);
+    return response;
+  }
+
+  /* Refresh token updated */
   if (data.isUpdated) {
     const options = { ...cookieOptions };
 
     const response = NextResponse.next();
-
     response.cookies.set('access_token', data.updated_access_token!, options);
     response.cookies.set('refresh_token', data.updated_refresh_token!, {
       ...options,
       httpOnly: true,
     });
-    applySetCookie(request, response);
+    applySetCookieAndHeaders(request, response);
     return response;
   }
 
+  /* Other cases */
   return NextResponse.next();
 }

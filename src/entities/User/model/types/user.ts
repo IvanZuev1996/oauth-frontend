@@ -5,13 +5,41 @@ export interface User {
   roleId: number;
   login: string;
   name: string;
-  telegram: string | null;
+  telegram: string;
+  email: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface UserSchema {
   data?: User;
+}
+
+/* Auth */
+
+export interface AuthBackendResponse {
+  type: string;
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface SignInData {
+  password: string;
+  loginOrTg: string;
+}
+
+export interface SignUpData extends Pick<User, 'login' | 'telegram' | 'email'> {
+  password: string;
+  referrer_profile_id?: number;
+  visit_id?: string;
+}
+
+export interface AccessTokenPayload {
+  userId: number;
+  role: string;
+  login: string;
+  iat: number;
+  exp: number;
 }
 
 /* API Payloads */
