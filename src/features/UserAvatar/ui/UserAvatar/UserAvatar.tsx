@@ -1,4 +1,5 @@
 import { BadgePlus, LayoutDashboard, X } from 'lucide-react';
+import Link from 'next/link';
 import { FC, useState } from 'react';
 import { MdLogout } from 'react-icons/md';
 
@@ -82,24 +83,16 @@ export const UserAvatar: FC<DefaultAvatarProps> = (props) => {
           </Button>
         </DropdownMenuLabel>
 
-        <DropdownMenuItem className="user-avatar__item">
-          <a
-            href={routeConfig.main}
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-2"
-          >
+        <DropdownMenuItem className="user-avatar__item-link">
+          <Link href={routeConfig.main} onClick={() => setIsOpen(false)}>
             <LayoutDashboard size={18} /> Мои приложения
-          </a>
+          </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem className="user-avatar__item">
-          <a
-            href={routeConfig.newClient}
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-2"
-          >
+        <DropdownMenuItem className="user-avatar__item-link">
+          <Link href={routeConfig.newClient} onClick={() => setIsOpen(false)}>
             <BadgePlus size={18} /> Создать приложение
-          </a>
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem onSelect={onLogout} className="user-avatar__item">
