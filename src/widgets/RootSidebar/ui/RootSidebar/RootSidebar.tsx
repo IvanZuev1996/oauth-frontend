@@ -25,7 +25,10 @@ export const RootSidebar = () => {
   const user = useAppSelector(getUserSelector);
   const sidebarItems = getSidebarMenuItemsByUserRole(user?.roleId);
 
-  const getActiveState = (path: string) => pathname === path;
+  const getActiveState = (path: string) => {
+    if (pathname?.includes('clients') && path === '/') return true;
+    return pathname === path;
+  };
 
   return (
     <Sidebar variant="sidebar" collapsible="icon">

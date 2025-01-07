@@ -1,9 +1,12 @@
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 
 import '../../src/app/styles/index.css';
 import { MainProvider } from '@/app/providers/MainProvider';
 
-const inter = Inter({ subsets: ['cyrillic'], variable: '--font-inter' });
+const montserrat = Montserrat({
+  subsets: ['cyrillic'],
+  variable: '--font-inter',
+});
 
 export default async function RootLayout({
   children,
@@ -11,7 +14,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={inter.variable} lang="ru">
+    <html className={montserrat.variable} lang="ru">
       <body>
         <MainProvider>{children}</MainProvider>
       </body>

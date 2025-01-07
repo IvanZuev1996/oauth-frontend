@@ -1,3 +1,5 @@
+import { ClientsList } from '@/widgets/ClientsList';
+
 export const MainPage = () => {
-  return <div>MainPage</div>;
+  return <ClientsList />;
 };

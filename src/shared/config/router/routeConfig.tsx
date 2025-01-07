@@ -1,4 +1,9 @@
-import { ApiRoutes, AppRoutes, ChildServicesRoutes } from '../../const/router';
+import {
+  ApiRoutes,
+  AppRoutes,
+  ChildServicesRoutes,
+  getRouteClientDetails,
+} from '../../const/router';
 import { backendUrl } from '../../const/system';
 
 export const routeConfig: Record<AppRoutes, string> = {
@@ -9,6 +14,9 @@ export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.AUTH_REFRESH_TOKEN]: '/auth/refresh-token',
   [AppRoutes.AUTH_SIGN_IN]: '/auth/signin',
   [AppRoutes.AUTH_SIGN_UP]: '/auth/signup',
+
+  /* Dynamic routes */
+  [AppRoutes.CLIENT_DETAILS]: getRouteClientDetails(':id'),
 };
 
 export const childServicesRouteConfig: Record<ChildServicesRoutes, string> = {};

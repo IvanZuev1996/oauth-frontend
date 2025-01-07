@@ -1,0 +1,3 @@
+.clients-list {
+  @apply grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-5 max-sm:grid-cols-1 lg:grid-cols-2;
+}
