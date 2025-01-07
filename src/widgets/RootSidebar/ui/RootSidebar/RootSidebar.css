@@ -1,0 +1,11 @@
+.aside-header {
+  @apply flex h-[var(--header-height)] w-full items-start justify-center px-2 pr-4 transition-all;
+}
+
+.aside-header span {
+  @apply font-medium;
+}
+
+.aside-header > div {
+  @apply flex h-full w-full items-center justify-center rounded-sm border border-dashed bg-accent px-2;
+}

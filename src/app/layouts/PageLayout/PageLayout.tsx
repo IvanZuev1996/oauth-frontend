@@ -2,8 +2,8 @@ import { FC, PropsWithChildren } from 'react';
 
 import { SidebarProvider } from '@/shared/ui/Sidebar/Sidebar';
 import { Toaster } from '@/shared/ui/Toast/Toaster';
-// import { Header } from '@/widgets/Header';
-// import { RootSidebar } from '@/widgets/RootSidebar';
+import { Header } from '@/widgets/Header';
+import { RootSidebar } from '@/widgets/RootSidebar';
 import './PageLayout.css';
 
 interface PageLayoutProps extends PropsWithChildren {
@@ -17,9 +17,9 @@ export const PageLayout: FC<PageLayoutProps> = ({
   return (
     <div className="page-layout">
       <SidebarProvider defaultOpen={isSidebarOpen} className="w-full">
-        {/* <RootSidebar /> */}
+        <RootSidebar />
         <div className="page-layout__content">
-          {/* <Header /> */}
+          <Header />
           <main>{children}</main>
           <Toaster />
         </div>

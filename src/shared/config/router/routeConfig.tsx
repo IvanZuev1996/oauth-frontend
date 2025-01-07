@@ -1,26 +1,9 @@
-import {
-  ApiRoutes,
-  AppRoutes,
-  ChildServicesRoutes,
-  getRouteOfferDetails,
-  getRouteOfferEdit,
-} from '../../const/router';
+import { ApiRoutes, AppRoutes, ChildServicesRoutes } from '../../const/router';
 import { backendUrl } from '../../const/system';
 
 export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
-  [AppRoutes.LEADS]: '/leads',
-  [AppRoutes.OFFERS]: '/offers',
-  [AppRoutes.STATISTICS]: '/statistics',
-  [AppRoutes.WEBMASTERS]: '/webmasters',
-  [AppRoutes.CURATORS]: '/curators',
-  [AppRoutes.CONNECTED_OFFERS]: '/offers/connected',
-  [AppRoutes.ADD_OFFER]: '/offers/add',
-  [AppRoutes.NOT_FOUND]: '/not-found',
-
-  /* With dynamic params */
-  [AppRoutes.OFFER_DETAILS]: getRouteOfferDetails(':id'),
-  [AppRoutes.OFFER_EDIT]: getRouteOfferEdit(':id'),
+  [AppRoutes.NEW_CLIENT]: '/new-client',
 };
 
 export const childServicesRouteConfig: Record<ChildServicesRoutes, string> = {

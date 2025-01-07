@@ -1,33 +1,13 @@
 import { UserRoles, UserRolesWithoutAdmin } from '@/shared/types/roles/roles';
 
-interface UserBalance {
-  id: number;
-  approved: number;
-  hold: number;
-  conclusion: number;
-  userId: number;
-}
-
-export type UserLevelType = 1 | 2 | 3;
-
 export interface User {
   id: number;
-  isBanned: boolean;
   roleId: number;
   login: string;
-  curatorId: number | null;
-  phone: string | null;
+  name: string;
   telegram: string | null;
-  level: UserLevelType;
-  name?: string;
-  publicTelegram?: string;
-  defaultPercentage?: number;
   createdAt: Date;
   updatedAt: Date;
-
-  /* Relationships */
-  curator?: User;
-  balance?: UserBalance;
 }
 
 export interface UserSchema {

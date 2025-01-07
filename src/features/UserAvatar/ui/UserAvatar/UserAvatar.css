@@ -1,0 +1,7 @@
+.user-avatar__item {
+  @apply mx-2 my-1 flex !cursor-pointer items-center gap-2 !px-5 !py-3;
+}
+
+.user-avatar__status {
+  @apply flex flex-col items-start text-sm;
+}
