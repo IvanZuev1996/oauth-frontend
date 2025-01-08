@@ -13,8 +13,11 @@ export { userActions, userReducer } from './model/slice/userSlice';
 export type {
   UserSchema,
   User,
-  UserLevelType,
   UsersSortField,
+  AuthBackendResponse,
+  SignInData,
+  SignUpData,
+  AccessTokenPayload,
 } from './model/types/user';
 
 /* UI */

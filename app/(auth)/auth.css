@@ -1,0 +1,11 @@
+.auth-page {
+  @apply relative min-h-screen items-center justify-center;
+}
+
+.auth-page__bg {
+  @apply fixed bottom-0 left-0 right-0 top-0 z-[-1] bg-[url('/auth-bg.jpg')] bg-cover bg-[50%];
+}
+
+.auth-page__bg::before {
+  @apply absolute bottom-0 left-0 right-0 top-0 h-full w-full bg-[rgba(0,0,0,.2)] content-[''];
+}

@@ -1,0 +1,7 @@
+.clients-list {
+  @apply grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-5 max-sm:grid-cols-1 lg:grid-cols-2;
+}
+
+.clients-list__new {
+  @apply h-[128px] cursor-pointer items-center justify-center rounded-lg border shadow-sm transition-colors hover:bg-accent;
+}

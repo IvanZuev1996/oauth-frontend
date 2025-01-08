@@ -1,33 +1,20 @@
 export enum AppRoutes {
   MAIN = 'main',
-  LEADS = 'leads',
-  STATISTICS = 'statistics',
-  OFFERS = 'offers',
-  OFFER_DETAILS = 'offerDetails',
-  OFFER_EDIT = 'offerEdit',
-  NOT_FOUND = 'notFound',
-
-  /* ROUTES FOR CURATORS */
-  WEBMASTERS = 'webmasters',
-  CONNECTED_OFFERS = 'connectedOffers',
-
-  /* ROUTES FOR ADMINS */
-  CURATORS = 'curators',
-  ADD_OFFER = 'addOffer',
+  NEW_CLIENT = 'newClient',
+  SIGN_IN = 'signIn',
+  SIGN_UP = 'signUp',
+  CLIENT_DETAILS = 'clientDetails',
+  AUTH_LOGOUT = 'authLogout',
+  AUTH_REFRESH_TOKEN = 'authRefreshToken',
+  AUTH_SIGN_IN = 'authSignIn',
+  AUTH_SIGN_UP = 'authSignUp',
 }
 
-export enum ChildServicesRoutes {
-  PROFILE = 'profile',
-  REF_PROGRAM = 'refProgram',
-  LEVEL_SKILL = 'levelSkill',
-  FREE_TOOLS = 'freeTools',
-  AI_ASSISTANT = 'aiAssistant',
-}
+export enum ChildServicesRoutes {}
 
 export enum ApiRoutes {
   NEXT_SELF = 'next-self',
   SELF = 'self',
 }
 
-export const getRouteOfferDetails = (id: string | number) => `/offers/${id}`;
-export const getRouteOfferEdit = (id: string | number) => `/offers/edit/${id}`;
+export const getRouteClientDetails = (id: string | number) => `/clients/${id}`;

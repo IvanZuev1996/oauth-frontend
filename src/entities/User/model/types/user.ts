@@ -1,37 +1,44 @@
 import { UserRoles, UserRolesWithoutAdmin } from '@/shared/types/roles/roles';
 
-interface UserBalance {
-  id: number;
-  approved: number;
-  hold: number;
-  conclusion: number;
-  userId: number;
-}
-
-export type UserLevelType = 1 | 2 | 3;
-
 export interface User {
   id: number;
-  isBanned: boolean;
   roleId: number;
   login: string;
-  curatorId: number | null;
-  phone: string | null;
-  telegram: string | null;
-  level: UserLevelType;
-  name?: string;
-  publicTelegram?: string;
-  defaultPercentage?: number;
+  name: string;
+  telegram: string;
+  email: string;
   createdAt: Date;
   updatedAt: Date;
-
-  /* Relationships */
-  curator?: User;
-  balance?: UserBalance;
 }
 
 export interface UserSchema {
   data?: User;
+}
+
+/* Auth */
+
+export interface AuthBackendResponse {
+  type: string;
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface SignInData {
+  password: string;
+  loginOrTg: string;
+}
+
+export interface SignUpData
+  extends Pick<User, 'login' | 'telegram' | 'email' | 'name'> {
+  password: string;
+}
+
+export interface AccessTokenPayload {
+  userId: number;
+  role: string;
+  login: string;
+  iat: number;
+  exp: number;
 }
 
 /* API Payloads */

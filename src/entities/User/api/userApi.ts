@@ -6,6 +6,8 @@ import { userActions } from '../model/slice/userSlice';
 import {
   GetUserQueryParams,
   GetUsersQueryParams,
+  SignInData,
+  SignUpData,
   User,
 } from '../model/types/user';
 
@@ -29,14 +31,6 @@ const userApi = rtkApi.injectEndpoints({
       },
     }),
 
-    logout: builder.mutation<unknown, void>({
-      query: () => ({
-        url: '/auth/logout',
-        method: 'POST',
-        api: ApiRoutes.NEXT_SELF,
-      }),
-    }),
-
     getUsersList: builder.query<DataWithCounting<User>, GetUsersQueryParams>({
       query: (params) => ({
         url: '/users',
@@ -51,6 +45,34 @@ const userApi = rtkApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    /* Auth routes */
+
+    logout: builder.mutation<unknown, void>({
+      query: () => ({
+        url: '/auth/logout',
+        method: 'POST',
+        api: ApiRoutes.NEXT_SELF,
+      }),
+    }),
+
+    signIn: builder.mutation<unknown, SignInData>({
+      query: (body) => ({
+        url: '/auth/signin',
+        body,
+        method: 'POST',
+        api: ApiRoutes.NEXT_SELF,
+      }),
+    }),
+
+    signUp: builder.mutation<unknown, SignUpData>({
+      query: (body) => ({
+        url: '/auth/signup',
+        body,
+        method: 'POST',
+        api: ApiRoutes.NEXT_SELF,
+      }),
+    }),
   }),
 });
 
@@ -59,4 +81,6 @@ export const {
   useGetUserQuery,
   useLogoutMutation,
   useGetUsersListQuery,
+  useSignInMutation,
+  useSignUpMutation,
 } = userApi;

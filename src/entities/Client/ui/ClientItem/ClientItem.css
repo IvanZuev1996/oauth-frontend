@@ -1,0 +1,21 @@
+.client-item {
+  @apply cursor-pointer rounded-lg border p-2 transition-all hover:bg-accent md:p-5;
+}
+
+.client-item h3,
+.client-item p,
+.client-item span {
+  @apply block overflow-hidden text-ellipsis whitespace-nowrap;
+}
+
+.client-item > img {
+  @apply h-[86px] w-[86px] rounded-md object-cover;
+}
+
+.client-item svg {
+  @apply min-h-[18px] min-w-[18px];
+}
+
+.client-item h3 {
+  @apply text-lg font-semibold;
+}

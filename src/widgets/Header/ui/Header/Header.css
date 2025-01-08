@@ -1,0 +1,7 @@
+header {
+  @apply flex h-[var(--header-height)] items-center justify-between bg-root px-6;
+}
+
+.header-toggle-btn {
+  @apply cursor-pointer opacity-80 transition-opacity hover:opacity-100;
+}

@@ -2,34 +2,25 @@ import {
   ApiRoutes,
   AppRoutes,
   ChildServicesRoutes,
-  getRouteOfferDetails,
-  getRouteOfferEdit,
+  getRouteClientDetails,
 } from '../../const/router';
 import { backendUrl } from '../../const/system';
 
 export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
-  [AppRoutes.LEADS]: '/leads',
-  [AppRoutes.OFFERS]: '/offers',
-  [AppRoutes.STATISTICS]: '/statistics',
-  [AppRoutes.WEBMASTERS]: '/webmasters',
-  [AppRoutes.CURATORS]: '/curators',
-  [AppRoutes.CONNECTED_OFFERS]: '/offers/connected',
-  [AppRoutes.ADD_OFFER]: '/offers/add',
-  [AppRoutes.NOT_FOUND]: '/not-found',
+  [AppRoutes.NEW_CLIENT]: '/new-client',
+  [AppRoutes.SIGN_IN]: '/signin',
+  [AppRoutes.SIGN_UP]: '/signup',
+  [AppRoutes.AUTH_LOGOUT]: '/auth/logout',
+  [AppRoutes.AUTH_REFRESH_TOKEN]: '/auth/refresh-token',
+  [AppRoutes.AUTH_SIGN_IN]: '/auth/signin',
+  [AppRoutes.AUTH_SIGN_UP]: '/auth/signup',
 
-  /* With dynamic params */
-  [AppRoutes.OFFER_DETAILS]: getRouteOfferDetails(':id'),
-  [AppRoutes.OFFER_EDIT]: getRouteOfferEdit(':id'),
+  /* Dynamic routes */
+  [AppRoutes.CLIENT_DETAILS]: getRouteClientDetails(':id'),
 };
 
-export const childServicesRouteConfig: Record<ChildServicesRoutes, string> = {
-  [ChildServicesRoutes.PROFILE]: 'https://profile.reyting.pro',
-  [ChildServicesRoutes.REF_PROGRAM]: 'https://profile.reyting.pro/ref-program',
-  [ChildServicesRoutes.LEVEL_SKILL]: 'https://levelskill.pro',
-  [ChildServicesRoutes.FREE_TOOLS]: 'https://reyting.pro/',
-  [ChildServicesRoutes.AI_ASSISTANT]: 'https://ai-text.reyting.pro/',
-};
+export const childServicesRouteConfig: Record<ChildServicesRoutes, string> = {};
 
 export const apiRoutesConfig: Record<
   ApiRoutes,
@@ -44,3 +35,13 @@ export const apiRoutesConfig: Record<
     isNeedCustomQuery: true,
   },
 };
+
+/* Specific routes */
+export const authPageRoutes = [routeConfig.signIn, routeConfig.signUp];
+
+export const apiRoutes = [
+  routeConfig.authSignIn,
+  routeConfig.authSignUp,
+  routeConfig.authLogout,
+  routeConfig.authRefreshToken,
+];

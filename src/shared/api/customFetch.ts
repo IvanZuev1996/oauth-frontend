@@ -7,8 +7,9 @@ import {
 import { Mutex } from 'async-mutex';
 import axios from 'axios';
 
-import { backendUrl } from '@/shared/const/system';
 import { getCookie } from '@/shared/lib/utils/cookies';
+
+import { routeConfig } from '../config/router/routeConfig';
 
 const initCustomFetch = (baseUrl: string) => {
   const mutex = new Mutex();
@@ -38,7 +39,7 @@ const initCustomFetch = (baseUrl: string) => {
             result = await baseQuery(args, api, extraOptions);
           }
         } catch (_) {
-          window.location.href = backendUrl;
+          window.location.href = routeConfig.signIn;
         } finally {
           release();
         }

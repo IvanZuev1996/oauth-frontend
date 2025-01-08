@@ -1,11 +1,15 @@
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import { PageLayout } from '@/app/layouts/PageLayout/PageLayout';
 import { MainProvider } from '@/app/providers/MainProvider';
-import '../src/app/styles/index.css';
 
-const inter = Inter({ subsets: ['cyrillic'], variable: '--font-inter' });
+import '../../src/app/styles/index.css';
+
+const montserrat = Montserrat({
+  subsets: ['cyrillic'],
+  variable: '--font-inter',
+});
 
 export default async function RootLayout({
   children,
@@ -18,7 +22,7 @@ export default async function RootLayout({
   const isSidebarOpen = cookieStore.get('sidebar:state')?.value === 'true';
 
   return (
-    <html className={inter.variable} lang="ru">
+    <html className={montserrat.variable} lang="ru">
       <body className={theme}>
         <MainProvider>
           <PageLayout isSidebarOpen={isSidebarOpen}>{children}</PageLayout>

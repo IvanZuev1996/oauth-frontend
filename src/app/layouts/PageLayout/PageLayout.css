@@ -7,6 +7,6 @@
 }
 
 main {
-  @apply flex flex-col p-5;
+  @apply flex flex-col rounded-t-3xl bg-background p-5 px-7 shadow-sm;
   min-height: calc(100vh - var(--header-height));
 }
