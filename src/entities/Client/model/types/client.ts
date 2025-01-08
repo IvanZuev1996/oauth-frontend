@@ -10,3 +10,19 @@ export interface Client {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type ShortClientInfo = Pick<
+  Client,
+  'clientId' | 'name' | 'createdAt' | 'img'
+>;
+
+/* API Payloads */
+export type CreateClientPayload = Pick<
+  Client,
+  'name' | 'scope' | 'img' | 'companyEmail' | 'redirectUri'
+>;
+
+export type UpdateClientPayload = CreateClientPayload &
+  Pick<Client, 'clientId'>;
+
+export type DeleteClientPayload = Pick<Client, 'clientId'>;

@@ -1,5 +1,7 @@
 'use client';
 
+import { setDefaultOptions } from 'date-fns';
+import { ru } from 'date-fns/locale';
 import { FC, PropsWithChildren } from 'react';
 
 import { useGetMeQuery } from '@/entities/User';
@@ -7,6 +9,8 @@ import { SidebarProvider } from '@/shared/ui/Sidebar/Sidebar';
 import { Toaster } from '@/shared/ui/Toast/Toaster';
 import { Header } from '@/widgets/Header';
 import { RootSidebar } from '@/widgets/RootSidebar';
+
+setDefaultOptions({ locale: ru });
 
 import './PageLayout.css';
 
