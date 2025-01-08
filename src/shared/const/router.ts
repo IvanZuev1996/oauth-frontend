@@ -2,6 +2,7 @@ export enum AppRoutes {
   MAIN = 'main',
   NEW_CLIENT = 'newClient',
   SIGN_IN = 'signIn',
+  SIGN_UP = 'signUp',
   CLIENT_DETAILS = 'clientDetails',
   AUTH_LOGOUT = 'authLogout',
   AUTH_REFRESH_TOKEN = 'authRefreshToken',

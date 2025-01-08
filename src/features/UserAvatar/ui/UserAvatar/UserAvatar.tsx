@@ -16,6 +16,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/shared/ui/DropdownMenu/DropdownMenu';
+import { Loader } from '@/shared/ui/Loader/Loader';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
@@ -23,28 +24,27 @@ import './UserAvatar.css';
 
 type DefaultAvatarProps = PropsWithClassName & {
   userData?: User;
+  logoutLoading?: boolean;
   onLogout: () => void;
 };
 
 export const UserAvatar: FC<DefaultAvatarProps> = (props) => {
-  const { onLogout, className } = props;
+  const { onLogout, logoutLoading, userData, className } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const userData: User = {
-    id: 1,
-    name: 'Зуев Иван',
-    login: 'login',
-    telegram: 'grubinsky1604',
-    email: 'ivan-zuev-97@mail.ru',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    roleId: 1,
+  const onLogoutHandler = (e: Event) => {
+    e.preventDefault();
+    onLogout();
   };
+
+  if (!userData) {
+    return <Avatar isLoading={true} />;
+  }
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger>
-        <Avatar login={userData?.login} isLoading={Boolean(!userData)} />
+        <Avatar login={userData.login} />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
@@ -54,7 +54,7 @@ export const UserAvatar: FC<DefaultAvatarProps> = (props) => {
       >
         <DropdownMenuLabel>
           <VStack className="mb-3 items-center justify-center pt-4">
-            <Avatar login={userData?.login} />
+            <Avatar login={userData.login} />
             <VStack className="items-center justify-center gap-0">
               <Text as="span" weight="medium" className="text-center text-lg">
                 {userData.name}
@@ -67,7 +67,7 @@ export const UserAvatar: FC<DefaultAvatarProps> = (props) => {
                   ·
                 </Text>
                 <Text as="span" className="text-foreground/50" weight="normal">
-                  {userData?.login}
+                  {userData.login}
                 </Text>
               </HStack>
             </VStack>
@@ -95,8 +95,17 @@ export const UserAvatar: FC<DefaultAvatarProps> = (props) => {
           </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem onSelect={onLogout} className="user-avatar__item">
-          <MdLogout size={18} /> Выход
+        <DropdownMenuItem
+          onSelect={onLogoutHandler}
+          className="user-avatar__item"
+          data-loading={logoutLoading}
+        >
+          {logoutLoading ? (
+            <Loader fullWidth={false} />
+          ) : (
+            <MdLogout size={18} />
+          )}
+          Выход
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

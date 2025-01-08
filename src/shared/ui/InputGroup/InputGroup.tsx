@@ -46,9 +46,9 @@ export const InputGroup: React.FC<Props> = ({
             </TooltipProvider>
           )}
         </div>
-        <span className="error">{error}</span>
       </div>
       {children}
+      <span className="error">{error}</span>
     </div>
   );
 };

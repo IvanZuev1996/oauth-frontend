@@ -10,6 +10,7 @@ export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
   [AppRoutes.NEW_CLIENT]: '/new-client',
   [AppRoutes.SIGN_IN]: '/signin',
+  [AppRoutes.SIGN_UP]: '/signup',
   [AppRoutes.AUTH_LOGOUT]: '/auth/logout',
   [AppRoutes.AUTH_REFRESH_TOKEN]: '/auth/refresh-token',
   [AppRoutes.AUTH_SIGN_IN]: '/auth/signin',
@@ -36,7 +37,7 @@ export const apiRoutesConfig: Record<
 };
 
 /* Specific routes */
-export const authPageRoutes = [routeConfig.signIn];
+export const authPageRoutes = [routeConfig.signIn, routeConfig.signUp];
 
 export const apiRoutes = [
   routeConfig.authSignIn,

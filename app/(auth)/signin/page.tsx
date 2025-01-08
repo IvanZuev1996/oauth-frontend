@@ -1,5 +1,5 @@
 import { SignInPage } from '@/pages/SignInPage';
 
-export default function Main() {
+export default function SignIn() {
   return <SignInPage />;
 }

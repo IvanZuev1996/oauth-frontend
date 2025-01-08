@@ -1,0 +1,3 @@
+.signin-page__form__wrap {
+  @apply w-full max-w-sm rounded-2xl bg-background p-8 shadow-sm;
+}
