@@ -3,7 +3,7 @@ import { NewClientPage } from '@/pages/NewClientPage';
 
 export default function NewClient() {
   return (
-    <PageContentLayout title="Создать приложение">
+    <PageContentLayout title="Создание приложения">
       <NewClientPage />
     </PageContentLayout>
   );
