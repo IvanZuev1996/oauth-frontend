@@ -15,5 +15,5 @@ export type SortType = 'asc' | 'desc';
 
 export interface ErrorResponse {
   status: number;
-  data: { errors: Record<string, string>[] };
+  data: { errors: { property: string; message: string }[] };
 }

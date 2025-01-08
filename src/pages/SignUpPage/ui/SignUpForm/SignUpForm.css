@@ -1,0 +1,15 @@
+.signin-page__form {
+  @apply max-h-screen gap-0 overflow-y-auto px-1;
+}
+
+.signin-page__form input {
+  @apply py-5;
+}
+
+.signin-page__form button {
+  @apply py-5;
+}
+
+.signin-page__form form {
+  @apply mt-5 flex w-full flex-col gap-3;
+}

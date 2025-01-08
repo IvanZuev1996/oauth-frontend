@@ -28,10 +28,9 @@ export interface SignInData {
   loginOrTg: string;
 }
 
-export interface SignUpData extends Pick<User, 'login' | 'telegram' | 'email'> {
+export interface SignUpData
+  extends Pick<User, 'login' | 'telegram' | 'email' | 'name'> {
   password: string;
-  referrer_profile_id?: number;
-  visit_id?: string;
 }
 
 export interface AccessTokenPayload {
