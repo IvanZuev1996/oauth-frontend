@@ -11,9 +11,9 @@ export { ClientItem } from './ui/ClientItem/ClientItem';
 
 /* Api */
 export {
-  useCreateClientQuery,
   useGetClientDataQuery,
   useDeleteClientQuery,
   useGetClientsQuery,
-  useUpdateClientQuery,
+  useCreateClientMutation,
+  useUpdateClientMutation,
 } from './api/clientApi';

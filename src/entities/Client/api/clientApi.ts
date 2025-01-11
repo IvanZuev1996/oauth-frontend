@@ -30,7 +30,7 @@ const clientApi = rtkApi.injectEndpoints({
       },
     }),
 
-    createClient: builder.query<Client, CreateClientPayload>({
+    createClient: builder.mutation<Client, CreateClientPayload>({
       query: (body) => {
         return {
           url: '/clients',
@@ -40,7 +40,7 @@ const clientApi = rtkApi.injectEndpoints({
       },
     }),
 
-    updateClient: builder.query<Client, UpdateClientPayload>({
+    updateClient: builder.mutation<Client, UpdateClientPayload>({
       query: (body) => {
         return {
           url: '/clients',
@@ -63,9 +63,9 @@ const clientApi = rtkApi.injectEndpoints({
 });
 
 export const {
-  useCreateClientQuery,
+  useCreateClientMutation,
+  useUpdateClientMutation,
   useDeleteClientQuery,
   useGetClientDataQuery,
   useGetClientsQuery,
-  useUpdateClientQuery,
 } = clientApi;

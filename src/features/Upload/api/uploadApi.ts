@@ -13,7 +13,18 @@ const uploadApi = rtkApi.injectEndpoints({
         body,
       }),
     }),
+
+    deleteImage: builder.mutation<
+      { status: 'success' | 'error' },
+      Pick<UploadedImage, 'path'>
+    >({
+      query: (body) => ({
+        url: '/uploads',
+        method: 'DELETE',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useUploadImageMutation } = uploadApi;
+export const { useUploadImageMutation, useDeleteImageMutation } = uploadApi;
