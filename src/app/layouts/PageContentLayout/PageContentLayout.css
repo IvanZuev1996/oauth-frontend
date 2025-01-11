@@ -1,3 +1,7 @@
 h1 {
-  @apply mb-5 mt-2 text-2xl font-semibold;
+  @apply mt-2 block overflow-hidden text-ellipsis whitespace-nowrap text-2xl font-semibold;
+}
+
+section {
+  @apply mt-5;
 }

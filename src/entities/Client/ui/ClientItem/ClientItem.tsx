@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { LaptopMinimal } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,6 +5,7 @@ import { FC } from 'react';
 
 import { getRouteClientDetails } from '@/shared/const/router';
 import { cn } from '@/shared/lib/utils/cn';
+import { formatDate } from '@/shared/lib/utils/formatDate';
 import { PropsWithClassName } from '@/shared/types/general/general';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
@@ -19,10 +19,8 @@ type Props = PropsWithClassName & {
 };
 
 export const ClientItem: FC<Props> = ({ client, className }) => {
-  const formattedDate = format(client.createdAt, 'd MMMM yyyy');
-
   return (
-    <Link href={getRouteClientDetails(1)}>
+    <Link href={getRouteClientDetails(client.clientId)}>
       <HStack className={cn('client-item', className)}>
         <Image
           src="/c-black.png"
@@ -35,7 +33,7 @@ export const ClientItem: FC<Props> = ({ client, className }) => {
             <Text as="h3">{client?.name}</Text>
             <LaptopMinimal size={18} />
           </HStack>
-          <Text>{formattedDate}</Text>
+          <Text>{formatDate(client.createdAt)}</Text>
         </VStack>
       </HStack>
     </Link>

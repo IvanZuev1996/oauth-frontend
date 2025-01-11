@@ -24,7 +24,7 @@ const clientApi = rtkApi.injectEndpoints({
     getClientData: builder.query<Client, { clientId: string }>({
       query: ({ clientId }) => {
         return {
-          url: `/client/${clientId}`,
+          url: `/clients/${clientId}`,
           method: 'GET',
         };
       },

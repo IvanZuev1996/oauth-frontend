@@ -5,9 +5,11 @@
 /* Model */
 
 /* Types */
+export type { Client } from './model/types/client';
 
 /* UI */
 export { ClientItem } from './ui/ClientItem/ClientItem';
+export { ClientScopes } from './ui/ClientScopes/ClientScopes';
 
 /* Api */
 export {

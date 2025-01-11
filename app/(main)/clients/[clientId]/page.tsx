@@ -1,10 +1,13 @@
 import { PageContentLayout } from '@/app/layouts/PageContentLayout/PageContentLayout';
 import { ClientPage } from '@/pages/ClientPage';
 
-export default function Client() {
+type Props = { params: Promise<{ clientId: string }> };
+
+export default async function Client({ params }: Props) {
+  const { clientId } = await params;
   return (
     <PageContentLayout>
-      <ClientPage />
+      <ClientPage clientId={clientId} />
     </PageContentLayout>
   );
 }
