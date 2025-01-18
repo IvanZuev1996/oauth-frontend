@@ -3,7 +3,7 @@
 import { CloudAlert } from 'lucide-react';
 import { FC } from 'react';
 
-import { Client, ClientScopes } from '@/entities/Client';
+import { ClientScopes, ClientWithScopeDetails } from '@/entities/Client';
 import { CopiedField } from '@/features/CopiedField';
 import { formatDate } from '@/shared/lib/utils/formatDate';
 import { Loader } from '@/shared/ui/Loader/Loader';
@@ -13,7 +13,7 @@ import { Text } from '@/shared/ui/Text/Text';
 import './ClientDetails.css';
 
 type Props = {
-  data?: Client;
+  data?: ClientWithScopeDetails;
   isLoading: boolean;
 };
 
@@ -52,7 +52,7 @@ export const ClientDetails: FC<Props> = ({ data, isLoading }) => {
         <Text weight="medium" className="text-base">
           Запрашиваемые права
         </Text>
-        <ClientScopes scope={data.scope} />
+        <ClientScopes scopes={data.scopes} />
       </VStack>
 
       <CopiedField field="Redirect URI" value={data.redirectUri} />

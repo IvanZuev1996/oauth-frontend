@@ -5,7 +5,7 @@
 /* Model */
 
 /* Types */
-export type { Client } from './model/types/client';
+export type { Client, ClientWithScopeDetails } from './model/types/client';
 
 /* UI */
 export { ClientItem } from './ui/ClientItem/ClientItem';

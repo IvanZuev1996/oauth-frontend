@@ -1,5 +1,12 @@
+import { ChangeEvent } from 'react';
+
+import { useCreateClientMutation } from '@/entities/Client';
+import { routeConfig } from '@/shared/config/router/routeConfig';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
+import { useToast } from '@/shared/lib/hooks/useToast/useToast';
+import { timeout } from '@/shared/lib/utils/timeout';
+import { unwrapError } from '@/shared/lib/utils/unwrapError';
 import { Button } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input/Input';
 import { InputGroup } from '@/shared/ui/InputGroup/InputGroup';
@@ -8,12 +15,6 @@ import { Text } from '@/shared/ui/Text/Text';
 
 import { getClientFormDataSelector } from '../../model/selectors/clientFormSelectors';
 import { clientFormActions } from '../../model/slice/clientFormSlice';
-import { ChangeEvent } from 'react';
-import { useCreateClientMutation } from '@/entities/Client';
-import { useToast } from '@/shared/lib/hooks/useToast/useToast';
-import { unwrapError } from '@/shared/lib/utils/unwrapError';
-import { routeConfig } from '@/shared/config/router/routeConfig';
-import { timeout } from '@/shared/lib/utils/timeout';
 
 export const SystemClientFormStep = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ export const SystemClientFormStep = () => {
     const res = await createClient({
       companyEmail: formData.email,
       name: formData.serviceName,
-      scope: formData.scope.join(' '),
+      scopes: formData.scope,
       redirectUri: formData.redirectUri,
       img: formData.uploadedImage,
     });

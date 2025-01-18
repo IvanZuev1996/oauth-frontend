@@ -5,10 +5,14 @@ export interface Client {
   redirectUri: string;
   name: string;
   companyEmail: string;
-  scope: string;
+  scopes: string[];
   img: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ClientWithScopeDetails extends Omit<Client, 'scopes'> {
+  scopes: Scopes;
 }
 
 export type ShortClientInfo = Pick<
@@ -16,10 +20,21 @@ export type ShortClientInfo = Pick<
   'clientId' | 'name' | 'createdAt' | 'img'
 >;
 
+export type Scopes = {
+  [serviceKey: string]: {
+    [scopeKey: string]: {
+      title: string;
+      requiresApproval: boolean;
+      ttl: number;
+      isTtlRefreshable: boolean;
+    };
+  };
+};
+
 /* API Payloads */
 export type CreateClientPayload = Pick<
   Client,
-  'name' | 'scope' | 'img' | 'companyEmail' | 'redirectUri'
+  'name' | 'scopes' | 'img' | 'companyEmail' | 'redirectUri'
 >;
 
 export type UpdateClientPayload = CreateClientPayload &

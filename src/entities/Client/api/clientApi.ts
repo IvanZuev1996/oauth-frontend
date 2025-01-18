@@ -2,6 +2,7 @@ import { rtkApi } from '@/shared/api/rtkApi';
 
 import {
   Client,
+  ClientWithScopeDetails,
   CreateClientPayload,
   DeleteClientPayload,
   ShortClientInfo,
@@ -21,7 +22,7 @@ const clientApi = rtkApi.injectEndpoints({
       },
     }),
 
-    getClientData: builder.query<Client, { clientId: string }>({
+    getClientData: builder.query<ClientWithScopeDetails, { clientId: string }>({
       query: ({ clientId }) => {
         return {
           url: `/clients/${clientId}`,

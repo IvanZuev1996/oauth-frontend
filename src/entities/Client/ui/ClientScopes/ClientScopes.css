@@ -10,7 +10,11 @@
   @apply rotate-180;
 }
 
+.client-scopes__item span {
+  @apply flex items-center gap-2;
+}
+
 .client-scopes__item span::before {
-  content: '·';
-  @apply mr-2 text-lg;
+  content: '';
+  @apply block aspect-square h-[4px] w-[4px] rounded-full bg-foreground text-lg;
 }

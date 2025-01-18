@@ -4,38 +4,43 @@ import { FC, useState } from 'react';
 import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
+import { Scopes } from '../../model/types/client';
+
 import './ClientScopes.css';
 
 type Props = {
-  scope: string;
+  scopes: Scopes;
 };
 
-export const ClientScopes: FC<Props> = ({ scope }) => {
+export const ClientScopes: FC<Props> = ({ scopes }) => {
   const [isOpened, setIsOpened] = useState(false);
-  const scopes = scope.split(' ');
 
   return (
     <VStack className="gap-1">
-      <VStack
-        className="client-scopes__item"
-        data-opened={isOpened}
-        key={scope}
-      >
-        <Text className="text-base">Информация о пользователе</Text>
+      {Object.keys(scopes).map((serviceName, idx) => (
+        <VStack
+          className="client-scopes__item"
+          data-opened={isOpened}
+          key={idx}
+        >
+          <Text className="text-base" weight="medium">
+            {serviceName}
+          </Text>
 
-        {isOpened &&
-          scopes.map((scope) => (
-            <Text as="span" className="text-base" key={scope}>
-              {scope}
-            </Text>
-          ))}
+          {isOpened &&
+            Object.keys(scopes[serviceName]).map((scope) => (
+              <Text as="span" className="text-base" key={scope}>
+                {scopes[serviceName][scope].title}
+              </Text>
+            ))}
 
-        <ChevronDown
-          size={20}
-          onClick={() => setIsOpened(!isOpened)}
-          className="client-scopes__item-icon"
-        />
-      </VStack>
+          <ChevronDown
+            size={20}
+            onClick={() => setIsOpened(!isOpened)}
+            className="client-scopes__item-icon"
+          />
+        </VStack>
+      ))}
     </VStack>
   );
 };
