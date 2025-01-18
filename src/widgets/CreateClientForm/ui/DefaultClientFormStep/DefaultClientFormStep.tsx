@@ -1,44 +1,39 @@
-import Image from 'next/image';
-import { ChangeEvent } from 'react';
-
-import { ImageDeleteButton, ImageUploadButton } from '@/features/Upload';
-import { backendUrl } from '@/shared/const/system';
+import { ClientNameField } from '@/entities/Client';
+import { ImageUploader } from '@/features/Upload';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
 import { Button } from '@/shared/ui/Button/Button';
-import { Input } from '@/shared/ui/Input/Input';
-import { InputGroup } from '@/shared/ui/InputGroup/InputGroup';
-import { HStack, VStack } from '@/shared/ui/Stack';
+import { VStack } from '@/shared/ui/Stack';
 
-import { getClientFormDataSelector } from '../../model/selectors/clientFormSelectors';
-import { clientFormActions } from '../../model/slice/clientFormSlice';
+import { getCreateClientFormDataSelector } from '../../model/selectors/createClientFormSelectors';
+import { createClientFormActions } from '../../model/slice/createClientFormSlice';
 
 export const DefaultClientFormStep = () => {
   const dispatch = useAppDispatch();
-  const formData = useAppSelector(getClientFormDataSelector);
+  const formData = useAppSelector(getCreateClientFormDataSelector);
   const { serviceName, uploadedImage } = formData;
 
   const onFileUpload = (path: string) => {
     dispatch(
-      clientFormActions.setClientFormData({
+      createClientFormActions.setCreateClientFormData({
         ...formData,
         uploadedImage: path,
       }),
     );
   };
 
-  const onChangeServiceName = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeServiceName = (value: string) => {
     dispatch(
-      clientFormActions.setClientFormData({
+      createClientFormActions.setCreateClientFormData({
         ...formData,
-        serviceName: e.target.value,
+        serviceName: value,
       }),
     );
   };
 
   const onDeleteSuccess = () => {
     dispatch(
-      clientFormActions.setClientFormData({
+      createClientFormActions.setCreateClientFormData({
         ...formData,
         uploadedImage: '',
       }),
@@ -46,45 +41,17 @@ export const DefaultClientFormStep = () => {
   };
 
   const onNextStepClick = () => {
-    dispatch(clientFormActions.setNextClientFormStep());
+    dispatch(createClientFormActions.setNextCreateClientFormStep());
   };
 
   return (
     <VStack>
-      <InputGroup label="Название Вашего сервиса">
-        <Input
-          value={serviceName}
-          onChange={onChangeServiceName}
-          placeholder="Название сервиса"
-        />
-      </InputGroup>
-
-      <InputGroup label="Иконка сервиса (не более 1МБ)">
-        <HStack className="rounded-lg border border-dashed p-5">
-          <VStack>
-            <ImageUploadButton
-              onFileUpload={onFileUpload}
-              className={uploadedImage ? 'w-full' : 'w-fit'}
-            />
-            {uploadedImage && (
-              <ImageDeleteButton
-                imagePath={uploadedImage}
-                onDeleteSuccess={onDeleteSuccess}
-                className="w-full"
-              />
-            )}
-          </VStack>
-          {uploadedImage && (
-            <Image
-              src={`${backendUrl}${uploadedImage}`}
-              alt="Иконка сервиса"
-              width={140}
-              height={140}
-              className="h-[140px] w-full rounded-lg object-contain"
-            />
-          )}
-        </HStack>
-      </InputGroup>
+      <ClientNameField name={serviceName} onChange={onChangeServiceName} />
+      <ImageUploader
+        uploadedImage={uploadedImage}
+        onFileUpload={onFileUpload}
+        onDeleteSuccess={onDeleteSuccess}
+      />
 
       <VStack className="mt-2">
         <Button

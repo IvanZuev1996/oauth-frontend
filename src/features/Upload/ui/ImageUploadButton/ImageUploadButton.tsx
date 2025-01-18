@@ -16,11 +16,12 @@ import { validateUploadedImage } from '../../lib/utils/upload';
 import './ImageUploadButton.css';
 
 type Props = {
+  isUploaded?: boolean;
   onFileUpload: (path: string) => void;
 } & PropsWithClassName;
 
 export const ImageUploadButton: FC<Props> = (props) => {
-  const { className, onFileUpload } = props;
+  const { isUploaded, className, onFileUpload } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -69,6 +70,12 @@ export const ImageUploadButton: FC<Props> = (props) => {
     }
   };
 
+  const renderUploadText = () => {
+    if (isLoading) return 'Загрузка...';
+    if (isUploaded) return 'Заменить иконку';
+    return 'Прикрепить иконку';
+  };
+
   return (
     <>
       <input
@@ -85,7 +92,7 @@ export const ImageUploadButton: FC<Props> = (props) => {
         isLoading={isLoading}
       >
         {isLoading ? <Loader /> : <Paperclip className="h-4 w-4" />}
-        {isLoading ? 'Загрузка...' : 'Прикрепить'}
+        {renderUploadText()}
       </Button>
     </>
   );

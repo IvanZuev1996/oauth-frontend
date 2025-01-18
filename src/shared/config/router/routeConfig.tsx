@@ -3,14 +3,15 @@ import {
   AppRoutes,
   ChildServicesRoutes,
   getRouteClientDetails,
+  getRouteEditClient,
 } from '../../const/router';
 import { backendUrl } from '../../const/system';
 
 export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
-  [AppRoutes.NEW_CLIENT]: '/new-client',
   [AppRoutes.SIGN_IN]: '/signin',
   [AppRoutes.SIGN_UP]: '/signup',
+  [AppRoutes.NEW_CLIENT]: '/clients/add',
   [AppRoutes.AUTH_LOGOUT]: '/auth/logout',
   [AppRoutes.AUTH_REFRESH_TOKEN]: '/auth/refresh-token',
   [AppRoutes.AUTH_SIGN_IN]: '/auth/signin',
@@ -18,6 +19,7 @@ export const routeConfig: Record<AppRoutes, string> = {
 
   /* Dynamic routes */
   [AppRoutes.CLIENT_DETAILS]: getRouteClientDetails(':id'),
+  [AppRoutes.EDIT_CLIENT]: getRouteEditClient(':id'),
 };
 
 export const childServicesRouteConfig: Record<ChildServicesRoutes, string> = {};

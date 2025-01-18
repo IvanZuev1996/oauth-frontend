@@ -1,9 +1,9 @@
-export interface ClientFormSchema {
-  data: ClientFormData;
+export interface CreateClientFormSchema {
+  data: CreateClientFormData;
   step: number;
 }
 
-export interface ClientFormData {
+export interface CreateClientFormData {
   serviceName: string;
   uploadedImage: string;
   scope: string[];

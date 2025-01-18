@@ -7,14 +7,16 @@ import {
 
 import { UserSchema } from '@/entities/User';
 import { rtkApi } from '@/shared/api/rtkApi';
-import { ClientFormSchema } from '@/widgets/CreateClientForm';
+import { CreateClientFormSchema } from '@/widgets/CreateClientForm';
+import { EditClientFormSchema } from '@/widgets/EditClientForm';
 
 export interface StateSchema {
   user: UserSchema;
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
   /** Async reducers here */
-  clientForm?: ClientFormSchema;
+  createClientForm?: CreateClientFormSchema;
+  editClientForm?: EditClientFormSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

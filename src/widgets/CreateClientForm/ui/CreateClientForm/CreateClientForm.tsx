@@ -10,21 +10,21 @@ import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
 import { CREATE_CLIENT_FORM_STEPS } from '../../config/clientFormConfig';
-import { getClientFormStepSelector } from '../../model/selectors/clientFormSelectors';
-import { clientFormReducer } from '../../model/slice/clientFormSlice';
+import { getCreateClientFormStepSelector } from '../../model/selectors/createClientFormSelectors';
+import { createClientFormReducer } from '../../model/slice/createClientFormSlice';
+import { CreateClientSuccessForm } from '../CreateClientSuccessForm/CreateClientSuccessForm';
 import { DefaultClientFormStep } from '../DefaultClientFormStep/DefaultClientFormStep';
 import { ScopesClientFormStep } from '../ScopesClientFormStep/ScopesClientFormStep';
 import { SystemClientFormStep } from '../SystemClientFormStep/SystemClientFormStep';
 
 import './CreateClientForm.css';
-import { CreateClientSuccessForm } from '../CreateClientSuccessForm/CreateClientSuccessForm';
 
 const reducers: ReducerList = {
-  clientForm: clientFormReducer,
+  createClientForm: createClientFormReducer,
 };
 
 export const CreateClientForm = () => {
-  const currentStep = useAppSelector(getClientFormStepSelector);
+  const currentStep = useAppSelector(getCreateClientFormStepSelector);
 
   const renderStepForm = () => {
     switch (currentStep) {

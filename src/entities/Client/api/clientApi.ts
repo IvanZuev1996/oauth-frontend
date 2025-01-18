@@ -69,4 +69,5 @@ export const {
   useDeleteClientQuery,
   useGetClientDataQuery,
   useGetClientsQuery,
+  useLazyGetClientDataQuery,
 } = clientApi;

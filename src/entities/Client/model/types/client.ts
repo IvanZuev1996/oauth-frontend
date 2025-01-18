@@ -31,7 +31,15 @@ export type Scopes = {
   };
 };
 
+/* Internal */
+
+export type ClientFieldOptions = {
+  label?: string;
+  description?: string;
+};
+
 /* API Payloads */
+
 export type CreateClientPayload = Pick<
   Client,
   'name' | 'scopes' | 'img' | 'companyEmail' | 'redirectUri'

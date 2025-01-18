@@ -23,7 +23,7 @@ export const ImageDeleteButton: FC<Props> = (props) => {
   };
 
   return (
-    <Button variant="destructive" onClick={onDeleteClick} className={className}>
+    <Button variant="secondary" onClick={onDeleteClick} className={className}>
       {isLoading ? <Loader fullWidth={false} /> : <Trash2 size={18} />}
       {isLoading ? 'Загрузка...' : 'Удалить'}
     </Button>

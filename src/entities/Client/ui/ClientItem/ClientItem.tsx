@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import { getRouteClientDetails } from '@/shared/const/router';
+import { backendUrl } from '@/shared/const/system';
 import { cn } from '@/shared/lib/utils/cn';
 import { formatDate } from '@/shared/lib/utils/formatDate';
 import { PropsWithClassName } from '@/shared/types/general/general';
@@ -23,7 +24,7 @@ export const ClientItem: FC<Props> = ({ client, className }) => {
     <Link href={getRouteClientDetails(client.clientId)}>
       <HStack className={cn('client-item', className)}>
         <Image
-          src="/c-black.png"
+          src={`${backendUrl}${client.img}`}
           alt="Логотип приложения"
           width={86}
           height={86}

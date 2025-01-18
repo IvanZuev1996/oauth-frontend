@@ -1,5 +1,6 @@
-import { VStack } from '@/shared/ui/Stack';
 import Image from 'next/image';
+
+import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
 export const CreateClientSuccessForm = () => {

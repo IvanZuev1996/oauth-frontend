@@ -1,0 +1,3 @@
+.edit-client-form {
+  @apply grid w-full grid-cols-1 gap-5 xl:grid-cols-2;
+}

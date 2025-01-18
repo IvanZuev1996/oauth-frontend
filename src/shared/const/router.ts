@@ -1,9 +1,10 @@
 export enum AppRoutes {
   MAIN = 'main',
-  NEW_CLIENT = 'newClient',
   SIGN_IN = 'signIn',
   SIGN_UP = 'signUp',
   CLIENT_DETAILS = 'clientDetails',
+  NEW_CLIENT = 'newClient',
+  EDIT_CLIENT = 'editClient',
   AUTH_LOGOUT = 'authLogout',
   AUTH_REFRESH_TOKEN = 'authRefreshToken',
   AUTH_SIGN_IN = 'authSignIn',
@@ -18,3 +19,5 @@ export enum ApiRoutes {
 }
 
 export const getRouteClientDetails = (id: string | number) => `/clients/${id}`;
+export const getRouteEditClient = (id: string | number) =>
+  `/clients/edit/${id}`;

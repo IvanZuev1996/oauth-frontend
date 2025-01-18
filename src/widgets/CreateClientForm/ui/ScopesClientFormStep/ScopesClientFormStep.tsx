@@ -6,17 +6,17 @@ import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
-import { getClientFormDataSelector } from '../../model/selectors/clientFormSelectors';
-import { clientFormActions } from '../../model/slice/clientFormSlice';
+import { getCreateClientFormDataSelector } from '../../model/selectors/createClientFormSelectors';
+import { createClientFormActions } from '../../model/slice/createClientFormSlice';
 
 export const ScopesClientFormStep = () => {
   const dispatch = useAppDispatch();
-  const formData = useAppSelector(getClientFormDataSelector);
+  const formData = useAppSelector(getCreateClientFormDataSelector);
 
   const onChangeScopes = (scopeKey: string) => {
     if (formData.scope.includes(scopeKey)) {
       dispatch(
-        clientFormActions.setClientFormData({
+        createClientFormActions.setCreateClientFormData({
           ...formData,
           scope: formData.scope.filter((scope) => scope !== scopeKey),
         }),
@@ -25,7 +25,7 @@ export const ScopesClientFormStep = () => {
     }
 
     return dispatch(
-      clientFormActions.setClientFormData({
+      createClientFormActions.setCreateClientFormData({
         ...formData,
         scope: [...formData.scope, scopeKey],
       }),
@@ -34,9 +34,9 @@ export const ScopesClientFormStep = () => {
 
   const onChangeStep = (type: 'prev' | 'next') => {
     if (type === 'prev') {
-      return dispatch(clientFormActions.setPrevClientFormStep());
+      return dispatch(createClientFormActions.setPrevCreateClientFormStep());
     }
-    dispatch(clientFormActions.setNextClientFormStep());
+    dispatch(createClientFormActions.setNextCreateClientFormStep());
   };
 
   return (
