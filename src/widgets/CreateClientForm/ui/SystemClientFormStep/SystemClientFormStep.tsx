@@ -51,7 +51,7 @@ export const SystemClientFormStep = () => {
     window.location.href = routeConfig.main;
   };
 
-  const onChangeField = (value: string, field: string) => {
+  const onChangeField = (field: string, value: string) => {
     const key = field as keyof typeof formData;
 
     dispatch(
@@ -63,7 +63,7 @@ export const SystemClientFormStep = () => {
   };
 
   return (
-    <VStack>
+    <VStack className="gap-5">
       <Text weight="medium" className="mb-3 text-lg">
         Данные приложения
       </Text>

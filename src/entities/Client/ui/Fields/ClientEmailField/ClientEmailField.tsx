@@ -7,14 +7,14 @@ import { ClientFieldOptions } from '../../../model/types/client';
 
 type Props = ClientFieldOptions & {
   email: string;
-  onChange: (value: string, field: 'email') => void;
+  onChange: (field: 'email', value: string) => void;
 };
 
 export const ClientEmailField: FC<Props> = (props) => {
   const { email, label, description, error, onChange } = props;
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value, 'email');
+    onChange('email', e.target.value);
   };
 
   return (

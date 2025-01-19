@@ -22,7 +22,7 @@ export const DefaultClientFormStep = () => {
     );
   };
 
-  const onChangeServiceName = (value: string) => {
+  const onChangeServiceName = (_: string, value: string) => {
     dispatch(
       createClientFormActions.setCreateClientFormData({
         ...formData,

@@ -134,7 +134,7 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
           />
           <ClientEmailField
             email={formData.companyEmail}
-            onChange={(value) => onChangeField('companyEmail', value)}
+            onChange={(_, value) => onChangeField('companyEmail', value)}
           />
 
           <HStack className="mt-2">

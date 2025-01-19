@@ -29,7 +29,7 @@ export const PageLayout: FC<PageLayoutProps> = (props) => {
   if (isLoading || isFetching) {
     return (
       <VStack className="h-screen">
-        <Loader size={25} fullHeight />
+        <Loader size={28} fullHeight />
       </VStack>
     );
   }
