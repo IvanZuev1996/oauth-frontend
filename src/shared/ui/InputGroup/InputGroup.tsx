@@ -19,7 +19,6 @@ type Props = {
   label: string;
   description?: string;
   htmlFor?: string;
-  error?: string;
   className?: string;
   helpText?: string;
 };
@@ -28,7 +27,6 @@ export const InputGroup: React.FC<Props> = ({
   children,
   htmlFor,
   label,
-  error,
   helpText,
   description,
   className,
@@ -52,7 +50,6 @@ export const InputGroup: React.FC<Props> = ({
       </div>
       {description && <Text variant="secondary">{description}</Text>}
       {children}
-      <span className="error">{error}</span>
     </div>
   );
 };

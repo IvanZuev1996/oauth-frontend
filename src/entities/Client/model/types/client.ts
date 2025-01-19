@@ -36,6 +36,7 @@ export type Scopes = {
 export type ClientFieldOptions = {
   label?: string;
   description?: string;
+  error?: string;
 };
 
 /* API Payloads */

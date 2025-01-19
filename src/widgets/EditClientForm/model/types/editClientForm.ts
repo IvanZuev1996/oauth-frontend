@@ -1,4 +1,5 @@
 import { ClientWithScopeDetails } from '@/entities/Client';
+import { ScopeShortData } from '@/entities/Scope';
 
 export interface EditClientFormSchema {
   data: EditClientFormData;
@@ -6,5 +7,7 @@ export interface EditClientFormSchema {
 
 export type EditClientFormData = Pick<
   ClientWithScopeDetails,
-  'name' | 'img' | 'scopes' | 'companyEmail' | 'redirectUri'
->;
+  'name' | 'img' | 'companyEmail' | 'redirectUri'
+> & {
+  scopes: ScopeShortData[];
+};

@@ -1,0 +1,15 @@
+.scopes-search__hints {
+  @apply absolute right-0 top-[64px] max-h-[270px] gap-1 overflow-y-auto rounded-md border bg-background p-2 text-sm shadow-md;
+}
+
+.scopes-search__hint {
+  @apply cursor-pointer items-start rounded-md px-3 py-2 transition-colors hover:bg-accent;
+}
+
+.scopes-search__hint > button {
+  @apply mt-1 rounded-[5px];
+}
+
+.scopes-search__hint[data-exist='true'] {
+  @apply cursor-default;
+}

@@ -9,7 +9,7 @@ export const initialEditClientFormData: EditClientFormData = {
   img: '',
   companyEmail: '',
   redirectUri: '',
-  scopes: {},
+  scopes: [],
   name: '',
 };
 

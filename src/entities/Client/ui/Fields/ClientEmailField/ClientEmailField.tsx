@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Input } from '@/shared/ui/Input/Input';
 import { InputGroup } from '@/shared/ui/InputGroup/InputGroup';
 
-import { ClientFieldOptions } from '../../model/types/client';
+import { ClientFieldOptions } from '../../../model/types/client';
 
 type Props = ClientFieldOptions & {
   email: string;
@@ -11,7 +11,7 @@ type Props = ClientFieldOptions & {
 };
 
 export const ClientEmailField: FC<Props> = (props) => {
-  const { email, label, description, onChange } = props;
+  const { email, label, description, error, onChange } = props;
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value, 'email');
@@ -26,6 +26,7 @@ export const ClientEmailField: FC<Props> = (props) => {
       }
     >
       <Input
+        error={error}
         name="email"
         value={email}
         onChange={onChangeHandler}

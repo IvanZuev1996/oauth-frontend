@@ -1,17 +1,15 @@
 .input-group {
   @apply flex w-full flex-col space-y-1.5;
 }
-.error {
-  @apply text-sm font-medium text-red-400;
-}
-
-.input-group > div {
-  @apply flex items-center justify-between;
-}
 
 .label-wrap {
   @apply h-5;
 }
+
+.label-wrap > div {
+  @apply flex items-center justify-between;
+}
+
 .label-wrap > div {
   @apply flex items-center gap-1;
 }

@@ -1,3 +1,19 @@
 .edit-client-form {
-  @apply grid w-full grid-cols-1 gap-5 xl:grid-cols-2;
+  @apply relative grid w-full grid-cols-1 gap-5 xl:grid-cols-2;
+}
+
+.edit-client-form__form {
+  @apply mt-[-1.25rem] h-full max-h-[calc(100vh-90px)] gap-5 overflow-y-auto px-1 pt-5 md:min-w-[400px];
+}
+
+.edit-client-form__form {
+  scrollbar-width: none;
+}
+
+.edit-client-form__form::-webkit-scrollbar {
+  display: none;
+}
+
+.edit-client-form__preview {
+  @apply h-full max-h-[calc(100%-18px)] rounded-md bg-secondary p-5 max-xl:hidden;
 }
