@@ -91,22 +91,24 @@ export const SignInForm = () => {
       </Text>
 
       <form action={onSignIn}>
-        <InputGroup label="Логин или телеграм" error={errors.loginOrTg}>
+        <InputGroup label="Логин или телеграм">
           <Input
             name="loginOrTg"
             value={loginOrTg}
             onChange={onChangeHandler}
             placeholder="Ваш логин или телеграм"
+            error={errors.loginOrTg}
           />
         </InputGroup>
 
-        <InputGroup label="Пароль" error={errors.password}>
+        <InputGroup label="Пароль">
           <Input
             name="password"
             value={password}
             onChange={onChangeHandler}
             placeholder="Пароль от Вашего аккаунта"
             type="password"
+            error={errors.password}
           />
         </InputGroup>
 

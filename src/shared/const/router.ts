@@ -9,6 +9,7 @@ export enum AppRoutes {
   AUTH_REFRESH_TOKEN = 'authRefreshToken',
   AUTH_SIGN_IN = 'authSignIn',
   AUTH_SIGN_UP = 'authSignUp',
+  OAUTH_AUTHORIZE = 'oauthAuthorize',
 }
 
 export enum ChildServicesRoutes {}

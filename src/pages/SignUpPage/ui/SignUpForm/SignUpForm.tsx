@@ -123,49 +123,54 @@ export const SignUpForm = () => {
       </Text>
 
       <form action={onSignUp}>
-        <InputGroup label="Ваше имя" error={errors?.name}>
+        <InputGroup label="Ваше имя">
           <Input
             name="name"
             value={data.name}
             onChange={onChangeHandler}
             placeholder="Введите имя"
+            error={errors?.name}
           />
         </InputGroup>
 
-        <InputGroup label="Логин" error={errors?.login}>
+        <InputGroup label="Логин">
           <Input
             name="login"
             value={data.login}
             onChange={onChangeHandler}
             placeholder="Придумайте логин"
+            error={errors?.login}
           />
         </InputGroup>
 
-        <InputGroup label="Телеграм" error={errors?.telegram}>
+        <InputGroup label="Телеграм">
           <Input
             name="telegram"
             value={data.telegram}
             onChange={onChangeHandler}
             placeholder="Введите ваш телеграм"
+            error={errors?.telegram}
           />
         </InputGroup>
 
-        <InputGroup label="Email" error={errors?.email}>
+        <InputGroup label="Email">
           <Input
             name="email"
             value={data.email}
             onChange={onChangeHandler}
             placeholder="Введите ваш Email"
+            error={errors?.email}
           />
         </InputGroup>
 
-        <InputGroup label="Пароль" error={errors?.password}>
+        <InputGroup label="Пароль">
           <Input
             name="password"
             value={data.password}
             onChange={onChangeHandler}
             placeholder="Придумайте пароль"
             type="password"
+            error={errors?.password}
           />
         </InputGroup>
 

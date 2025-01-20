@@ -1,0 +1,11 @@
+.oauth-error-form h1 {
+  @apply w-full text-center text-xl;
+}
+
+.oauth-error-form > span {
+  @apply w-full text-center text-3xl;
+}
+
+.oauth-error-form > p {
+  @apply w-full text-center text-base;
+}

@@ -16,6 +16,7 @@ export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.AUTH_REFRESH_TOKEN]: '/auth/refresh-token',
   [AppRoutes.AUTH_SIGN_IN]: '/auth/signin',
   [AppRoutes.AUTH_SIGN_UP]: '/auth/signup',
+  [AppRoutes.OAUTH_AUTHORIZE]: '/oauth/authorize',
 
   /* Dynamic routes */
   [AppRoutes.CLIENT_DETAILS]: getRouteClientDetails(':id'),
