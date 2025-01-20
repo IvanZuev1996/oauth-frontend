@@ -1,9 +1,17 @@
 .input-group {
-  @apply flex w-full flex-col space-y-1.5;
+  @apply flex w-full flex-col gap-1;
 }
 
 .label-wrap {
-  @apply h-5;
+  @apply mb-2 h-5;
+}
+
+.label-wrap[data-description='true'] {
+  @apply mb-0;
+}
+
+.label-wrap[data-description='true'] + .input-group__description {
+  @apply mb-2;
 }
 
 .label-wrap > div {

@@ -45,7 +45,7 @@ export const DefaultClientFormStep = () => {
   };
 
   return (
-    <VStack>
+    <VStack className="gap-3">
       <ClientNameField name={serviceName} onChange={onChangeServiceName} />
       <ImageUploader
         uploadedImage={uploadedImage}

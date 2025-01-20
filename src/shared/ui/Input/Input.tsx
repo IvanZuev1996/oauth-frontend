@@ -18,6 +18,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
             type={type}
             className={cn('input', className)}
             ref={ref}
+            autoComplete="off"
             {...props}
           />
 
@@ -29,6 +30,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
     );
   },
 );
+
 Input.displayName = 'Input';
 
 export { Input };

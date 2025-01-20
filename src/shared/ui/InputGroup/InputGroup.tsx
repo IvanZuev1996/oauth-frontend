@@ -33,22 +33,24 @@ export const InputGroup: React.FC<Props> = ({
 }) => {
   return (
     <div className={cn('input-group', className)}>
-      <div className="label-wrap">
-        <div>
-          <Label htmlFor={htmlFor}>{label}</Label>
-          {helpText && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <BsQuestionCircle size={14} className="text-primary" />
-                </TooltipTrigger>
-                <TooltipContent>{helpText}</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-        </div>
+      <div className="label-wrap" data-description={!!description}>
+        <Label htmlFor={htmlFor}>{label}</Label>
+        {helpText && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <BsQuestionCircle size={14} className="text-primary" />
+              </TooltipTrigger>
+              <TooltipContent>{helpText}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
       </div>
-      {description && <Text variant="secondary">{description}</Text>}
+      {description && (
+        <Text variant="secondary" className="input-group__description">
+          {description}
+        </Text>
+      )}
       {children}
     </div>
   );
