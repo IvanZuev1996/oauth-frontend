@@ -2,43 +2,48 @@
 
 import { FC } from 'react';
 
-import { useGetClientDataQuery } from '@/entities/Client';
+import { ClientWithScopeDetails } from '@/entities/Client';
+import { User } from '@/entities/User';
 import { OAuthAuthorizeForm } from '@/features/OauthAuthorizeForm';
-import { Loader } from '@/shared/ui/Loader/Loader';
+import { OAuthErrors } from '@/shared/config/oauth/oauthConfig';
 import { VStack } from '@/shared/ui/Stack';
 
-import { OAuthErrors } from '../../config/oauthAuthorizePage';
 import { OAuthParamsErrorForm } from '../OAuthParamsErrorForm/OAuthParamsErrorForm';
 
 import './OAuthAuthorizePage.css';
 
 type Props = {
-  clientId?: string;
-  responseType?: string;
+  userData?: User;
+  clientData?: ClientWithScopeDetails;
+  error?: OAuthErrors;
 };
 
-export const OAuthAuthorizePage: FC<Props> = ({ clientId, responseType }) => {
-  const { data, isLoading, isFetching } = useGetClientDataQuery(
-    { clientId: clientId || '' },
-    { skip: !clientId },
-  );
+export const OAuthAuthorizePage: FC<Props> = (props) => {
+  const { userData, clientData, error } = props;
 
-  const getErrorVariant = () => {
-    if (!clientId) return OAuthErrors.missedClientId;
-    if (!responseType) return OAuthErrors.missedResponseType;
-    return OAuthErrors.notFound;
+  const onLoginClick = () => {
+    // TODO: login client
   };
 
   const renderFormContent = () => {
-    if (isLoading || isFetching) {
-      return <Loader className="h-[150px]" />;
+    if (!clientData || error) {
+      return (
+        <OAuthParamsErrorForm error={error || OAuthErrors.CLIENT_NOT_FOUND} />
+      );
     }
 
-    if (!clientId || !responseType || !data) {
-      return <OAuthParamsErrorForm error={getErrorVariant()} />;
+    if (!userData) {
+      // TODO: redirect on signIn page with target query params (&target=oauth)
+      return null;
     }
 
-    return <OAuthAuthorizeForm client={data} />;
+    return (
+      <OAuthAuthorizeForm
+        user={userData}
+        client={clientData}
+        onLoginClick={onLoginClick}
+      />
+    );
   };
 
   return (

@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
+import { OAuthErrors } from '@/shared/config/oauth/oauthConfig';
 import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
-
-import { OAuthErrors } from '../../config/oauthAuthorizePage';
 
 import './OAuthParamsErrorForm.css';
 
@@ -13,9 +12,9 @@ type Props = {
 
 export const OAuthParamsErrorForm: FC<Props> = ({ error }) => {
   const config: Record<OAuthErrors, string> = {
-    'missed:client_id': "Отсутствует обязательный параметр 'client_id'",
-    'missed:response_type': "Отсутствует обязательный параметр 'response_type'",
-    not_found: 'Неизвестно приложение с таким client_id',
+    missedClientId: "Отсутствует обязательный параметр 'client_id'",
+    missedResponseType: "Отсутствует обязательный параметр 'response_type'",
+    clientNotFound: 'Неизвестно приложение с таким client_id',
   };
 
   return (

@@ -1,0 +1,12 @@
+.scopes-list {
+  @apply gap-1;
+}
+
+.scopes-list > span {
+  @apply flex items-center gap-2;
+}
+
+.scopes-list > span::before {
+  content: '';
+  @apply block aspect-square h-[4px] w-[4px] rounded-full bg-foreground text-lg;
+}

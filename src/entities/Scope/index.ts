@@ -9,6 +9,7 @@ export { convertScopesToArray } from './lib/utils/scope';
 export type { Scope, ScopeShortData } from './model/types/scope';
 
 /* UI */
+export { ScopesDotList } from './ui/ScopesDotList/ScopesDotList';
 
 /* Api */
 export {
