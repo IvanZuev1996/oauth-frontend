@@ -3,6 +3,7 @@
 import { FC } from 'react';
 
 import { ClientWithScopeDetails } from '@/entities/Client';
+import { convertScopesToArray } from '@/entities/Scope';
 import { User } from '@/entities/User';
 import { OAuthAuthorizeForm } from '@/features/OauthAuthorizeForm';
 import { OAuthErrors } from '@/shared/config/oauth/oauthConfig';
@@ -40,7 +41,11 @@ export const OAuthAuthorizePage: FC<Props> = (props) => {
     return (
       <OAuthAuthorizeForm
         user={userData}
-        client={clientData}
+        client={{
+          img: clientData.img,
+          name: clientData.name,
+          scopes: convertScopesToArray(clientData.scopes),
+        }}
         onLoginClick={onLoginClick}
       />
     );

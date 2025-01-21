@@ -1,5 +1,5 @@
 .edit-client-form {
-  @apply relative grid w-full grid-cols-1 gap-5 xl:grid-cols-2;
+  @apply relative z-[10] grid w-full grid-cols-1 gap-5 xl:grid-cols-2;
 }
 
 .edit-client-form__form {
@@ -14,6 +14,20 @@
   display: none;
 }
 
+/* Preview content */
+
 .edit-client-form__preview {
-  @apply h-full max-h-[calc(100%-18px)] rounded-md bg-secondary p-5 max-xl:hidden;
+  @apply relative h-full max-h-[calc(100%-18px)] items-center justify-center overflow-hidden rounded-md bg-secondary p-5 max-xl:hidden;
+}
+
+.edit-client-form__preview__bg {
+  @apply absolute bottom-0 left-0 right-0 top-0 z-[1] h-full w-full bg-[url('/auth-bg.jpg')] bg-cover bg-[50%];
+}
+
+.edit-client-form__preview__bg::before {
+  @apply absolute bottom-0 left-0 right-0 top-0 h-full w-full bg-[rgba(0,0,0,.2)] content-[''];
+}
+
+.edit-client-form__preview__form {
+  @apply z-[10] w-full max-w-sm items-center justify-center rounded-2xl bg-background p-8 shadow-sm;
 }

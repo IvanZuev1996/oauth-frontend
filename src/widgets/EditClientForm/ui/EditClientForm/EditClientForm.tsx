@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import {
   ClientEmailField,
@@ -11,6 +11,8 @@ import {
   useUpdateClientMutation,
 } from '@/entities/Client';
 import { convertScopesToArray } from '@/entities/Scope';
+import { getUserSelector } from '@/entities/User';
+import { OAuthAuthorizeForm } from '@/features/OauthAuthorizeForm';
 import { ScopesSearch } from '@/features/ScopesSearch';
 import { ImageUploader } from '@/features/Upload';
 import { getRouteClientDetails } from '@/shared/const/router';
@@ -48,7 +50,11 @@ const reducers: ReducerList = {
 export const EditClientForm: FC<Props> = ({ clientId }) => {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
+
+  const userData = useAppSelector(getUserSelector);
   const formData = useAppSelector(getEditClientFormDataSelector);
+
+  const [error, setError] = useState<Record<string, string>>();
 
   const { data, isLoading, isFetching } = useGetClientDataQuery({ clientId });
   const [updateClient, { isLoading: updateLoading }] =
@@ -64,12 +70,8 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
 
     if (!res || res.error) {
       const err = getErrorToastData(res.error);
-      // return toast(err);
-      if (!err.field) return;
-      const errorElement = document.getElementById(err.field);
-      if (!errorElement) return;
-      errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
+      if (err.field) setError({ [err.field]: 'Недопустимое значение' });
+      return toast(err);
     }
 
     window.location.href = getRouteClientDetails(clientId);
@@ -79,6 +81,7 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
     field: T,
     value: EditClientFormData[T],
   ) => {
+    if (error) setError(undefined);
     dispatch(
       editClientFormActions.setEditClientFormData({
         ...formData,
@@ -106,6 +109,10 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
     );
   }
 
+  if (!data || !userData) {
+    return null;
+  }
+
   return (
     <DynamicModuleLoader
       reducers={reducers}
@@ -117,7 +124,11 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
             Общая информация
           </Text>
 
-          <ClientNameField name={formData.name} onChange={onChangeField} />
+          <ClientNameField
+            name={formData.name}
+            onChange={onChangeField}
+            error={error?.name}
+          />
           <ImageUploader
             uploadedImage={formData.img}
             onFileUpload={(path) => onChangeField('img', path)}
@@ -131,10 +142,12 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
           <ClientRedirectURIField
             redirectUri={formData.redirectUri}
             onChange={onChangeField}
+            error={error?.redirectUri}
           />
           <ClientEmailField
             email={formData.companyEmail}
             onChange={(_, value) => onChangeField('companyEmail', value)}
+            error={error?.email}
           />
 
           <HStack className="mt-2">
@@ -154,7 +167,12 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
           </HStack>
         </VStack>
 
-        <VStack className="edit-client-form__preview">Авторизация</VStack>
+        <VStack className="edit-client-form__preview">
+          <VStack className="edit-client-form__preview__form">
+            <OAuthAuthorizeForm client={formData} user={userData} />
+          </VStack>
+          <div className="edit-client-form__preview__bg" />
+        </VStack>
       </div>
     </DynamicModuleLoader>
   );

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { ClientWithScopeDetails } from '@/entities/Client';
-import { ScopesDotList } from '@/entities/Scope';
+import { ScopesDotList, ScopeShortData } from '@/entities/Scope';
 import { User } from '@/entities/User';
 import { AppImage } from '@/shared/ui/AppImage/AppImage';
 import { Button } from '@/shared/ui/Button/Button';
@@ -10,9 +10,13 @@ import { Text } from '@/shared/ui/Text/Text';
 
 import './OAuthAuthorizeForm.css';
 
+type ClientData = Pick<ClientWithScopeDetails, 'img' | 'name'> & {
+  scopes: ScopeShortData[];
+};
+
 type Props = {
   user: User;
-  client: ClientWithScopeDetails;
+  client: ClientData;
   onLoginClick?: () => void;
 };
 
