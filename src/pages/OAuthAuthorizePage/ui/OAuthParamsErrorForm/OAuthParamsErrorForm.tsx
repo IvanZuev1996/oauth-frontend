@@ -15,6 +15,9 @@ export const OAuthParamsErrorForm: FC<Props> = ({ error }) => {
     missedClientId: "Отсутствует обязательный параметр 'client_id'",
     missedResponseType: "Отсутствует обязательный параметр 'response_type'",
     clientNotFound: 'Неизвестно приложение с таким client_id',
+    missedCodeChallenge: 'Отсутствует обязательный параметр "code_challenge"',
+    missedCodeChallengeMethod:
+      'Отсутствует обязательный параметр "code_challenge_method"',
   };
 
   return (

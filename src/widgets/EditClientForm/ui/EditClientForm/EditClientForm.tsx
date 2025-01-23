@@ -12,7 +12,7 @@ import {
 } from '@/entities/Client';
 import { convertScopesToArray } from '@/entities/Scope';
 import { getUserSelector } from '@/entities/User';
-import { OAuthAuthorizeForm } from '@/features/OauthAuthorizeForm';
+import { OAuthAuthorizeForm } from '@/features/OAuth';
 import { ScopesSearch } from '@/features/ScopesSearch';
 import { ImageUploader } from '@/features/Upload';
 import { getRouteClientDetails } from '@/shared/const/router';
@@ -169,7 +169,14 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
 
         <VStack className="edit-client-form__preview">
           <VStack className="edit-client-form__preview__form">
-            <OAuthAuthorizeForm client={formData} user={userData} />
+            <OAuthAuthorizeForm
+              client={{
+                ...formData,
+                clientId,
+              }}
+              user={userData}
+              readonly
+            />
           </VStack>
           <div className="edit-client-form__preview__bg" />
         </VStack>

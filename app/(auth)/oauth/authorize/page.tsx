@@ -2,9 +2,9 @@ import { cache } from 'react';
 
 import { ClientWithScopeDetails } from '@/entities/Client';
 import { User } from '@/entities/User';
+import { OAuthAuthorizeParams } from '@/features/OAuth';
 import { OAuthAuthorizePage } from '@/pages/OAuthAuthorizePage';
 import { customServerFetch } from '@/shared/api/customServerFetch';
-import { OAuthErrors } from '@/shared/config/oauth/oauthConfig';
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
@@ -25,20 +25,19 @@ export default async function OAuthAuthorize({ searchParams }: Props) {
   const clientRes = await getClient(params.client_id || '');
   const userRes = await getUser();
 
-  const getError = () => {
-    const { client_id, response_type } = params;
-    if (!client_id) return OAuthErrors.MISSED_CLIENT_ID;
-    if (!response_type) return OAuthErrors.MISSED_RESPONSE_TYPE;
-    if (!clientRes.data) return OAuthErrors.CLIENT_NOT_FOUND;
-
-    return undefined;
+  const paramsData: OAuthAuthorizeParams = {
+    ...params,
+    client_id: params.client_id || '',
+    response_type: params.response_type || '',
+    code_challenge: params.code_challenge || '',
+    code_challenge_method: params.code_challenge_method || '',
   };
 
   return (
     <OAuthAuthorizePage
       userData={userRes.data || undefined}
       clientData={clientRes.data || undefined}
-      error={getError()}
+      params={paramsData}
     />
   );
 }
