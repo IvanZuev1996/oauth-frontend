@@ -7,8 +7,8 @@ import { routeConfig } from '@/shared/config/router/routeConfig';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
 import { useToast } from '@/shared/lib/hooks/useToast/useToast';
+import { getErrorToastData } from '@/shared/lib/utils/getErrorToastData';
 import { timeout } from '@/shared/lib/utils/timeout';
-import { unwrapError } from '@/shared/lib/utils/unwrapError';
 import { Button } from '@/shared/ui/Button/Button';
 import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
@@ -37,13 +37,8 @@ export const SystemClientFormStep = () => {
     });
 
     if (!res || res.error) {
-      const err = unwrapError(res.error);
-      const errMessage = err.data.errors[0].message || 'Попробуйте позже';
-      return toast({
-        title: 'Что-то пошло не так',
-        description: errMessage,
-        variant: 'destructive',
-      });
+      const err = getErrorToastData(res.error);
+      return toast(err);
     }
 
     dispatch(createClientFormActions.setNextCreateClientFormStep());

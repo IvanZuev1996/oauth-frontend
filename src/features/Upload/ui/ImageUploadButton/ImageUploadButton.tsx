@@ -5,7 +5,7 @@ import { useRef, FC } from 'react';
 
 import { useToast } from '@/shared/lib/hooks/useToast/useToast';
 import { cn } from '@/shared/lib/utils/cn';
-import { unwrapError } from '@/shared/lib/utils/unwrapError';
+import { getErrorToastData } from '@/shared/lib/utils/getErrorToastData';
 import { PropsWithClassName } from '@/shared/types/general/general';
 import { Button } from '@/shared/ui/Button/Button';
 import { Loader } from '@/shared/ui/Loader/Loader';
@@ -49,15 +49,8 @@ export const ImageUploadButton: FC<Props> = (props) => {
 
       const response = await uploadImage(formData);
       if (!response || response.error || !response.data) {
-        const err = unwrapError(response.error);
-        const message = err
-          ? err.data.errors[0].message
-          : 'Что-то пошло не так';
-
-        return toast({
-          title: 'Ошибка',
-          description: message,
-        });
+        const err = getErrorToastData(response.error);
+        return toast(err);
       }
 
       onFileUpload(response.data.path);

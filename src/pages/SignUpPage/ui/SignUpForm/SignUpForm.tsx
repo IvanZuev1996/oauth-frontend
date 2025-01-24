@@ -63,15 +63,17 @@ export const SignUpForm = () => {
     const res = await fetchSingUp(data);
 
     if (!res || res.error) {
-      const { data } = unwrapError(error);
-      data.errors.forEach((fieldError) => {
-        if (fieldError) {
-          setFieldError(
-            fieldError.property as keyof SignUpData,
-            fieldError.message,
-          );
-        }
-      });
+      const err = unwrapError(error);
+      if (err) {
+        err.data.errors.forEach((fieldError) => {
+          if (fieldError) {
+            setFieldError(
+              fieldError.property as keyof SignUpData,
+              fieldError.message,
+            );
+          }
+        });
+      }
       setIsLoading(false);
     }
   };
