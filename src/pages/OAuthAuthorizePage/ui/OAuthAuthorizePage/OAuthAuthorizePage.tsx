@@ -1,12 +1,17 @@
 'use client';
 
-import { FC } from 'react';
+import { useRouter } from 'next/navigation';
+import { FC, useEffect } from 'react';
 
 import { ClientWithScopeDetails } from '@/entities/Client';
 import { convertScopesToArray } from '@/entities/Scope';
 import { User } from '@/entities/User';
 import { OAuthAuthorizeForm, OAuthAuthorizeParams } from '@/features/OAuth';
 import { OAuthErrors } from '@/shared/config/oauth/oauthConfig';
+import { routeConfig } from '@/shared/config/router/routeConfig';
+import { RedirectTargets } from '@/shared/const/router';
+import { generateURIWithQueryParams } from '@/shared/lib/utils/links';
+import { Loader } from '@/shared/ui/Loader/Loader';
 import { VStack } from '@/shared/ui/Stack';
 
 import { OAuthParamsErrorForm } from '../OAuthParamsErrorForm/OAuthParamsErrorForm';
@@ -21,6 +26,20 @@ type Props = {
 
 export const OAuthAuthorizePage: FC<Props> = (props) => {
   const { userData, clientData, params } = props;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (userData) return;
+    const authRedirectQueryParams = {
+      ...params,
+      target: RedirectTargets.OAUTH,
+    };
+    const uri = generateURIWithQueryParams(
+      routeConfig.signIn,
+      authRedirectQueryParams,
+    );
+    router.replace(uri);
+  }, [params, router, userData]);
 
   const getError = () => {
     if (!params) return OAuthErrors.MISSED_CLIENT_ID;
@@ -40,15 +59,12 @@ export const OAuthAuthorizePage: FC<Props> = (props) => {
   const renderFormContent = () => {
     const error = getError();
 
+    if (!userData) return <Loader />;
+
     if (!clientData || error || !params) {
       return (
         <OAuthParamsErrorForm error={error || OAuthErrors.CLIENT_NOT_FOUND} />
       );
-    }
-
-    if (!userData) {
-      // TODO: redirect on signIn page with target query params (&target=oauth)
-      return null;
     }
 
     return (

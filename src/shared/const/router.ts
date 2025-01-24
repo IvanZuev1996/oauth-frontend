@@ -14,6 +14,10 @@ export enum AppRoutes {
 
 export enum ChildServicesRoutes {}
 
+export enum RedirectTargets {
+  OAUTH = 'oauth',
+}
+
 export enum ApiRoutes {
   NEXT_SELF = 'next-self',
   SELF = 'self',

@@ -7,7 +7,10 @@ import { useEffect, useState } from 'react';
 import { SignInData } from '@/entities/User';
 import { useSignInMutation } from '@/entities/User/api/userApi';
 import { routeConfig } from '@/shared/config/router/routeConfig';
+import { RedirectTargets } from '@/shared/const/router';
+import { useAppSearchParams } from '@/shared/lib/hooks/useAppSearchParams/useAppSearchParams';
 import { cn } from '@/shared/lib/utils/cn';
+import { generateURIWithQueryParams } from '@/shared/lib/utils/links';
 import { Button, buttonVariants } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input/Input';
 import { InputGroup } from '@/shared/ui/InputGroup/InputGroup';
@@ -23,35 +26,44 @@ const defaultErrors: SignInFormErrors = {
 };
 
 export const SignInForm = () => {
+  const queryParams = useAppSearchParams();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<SignInFormErrors>(defaultErrors);
   const [loginOrTg, setLoginOrTg] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const [fetchSingIn, { error, isSuccess }] = useSignInMutation();
+  const [fetchSingIn, { isSuccess }] = useSignInMutation();
 
   useEffect(() => {
-    if (error) {
-      setIsLoading(false);
-      setErrors((prev) => ({
-        ...prev,
-        loginOrTg: 'Неверный логин или пароль',
-      }));
-      return;
+    if (!isSuccess) return;
+    let redirectUrl = routeConfig.main;
+
+    if (queryParams.target === RedirectTargets.OAUTH) {
+      redirectUrl = generateURIWithQueryParams(
+        routeConfig.oauthAuthorize,
+        queryParams,
+      );
     }
 
-    if (isSuccess) {
-      window.location.href = routeConfig.main;
-      setIsLoading(false);
-    }
-  }, [error, isSuccess]);
+    window.location.href = redirectUrl;
+    setIsLoading(false);
+  }, [isSuccess, queryParams]);
 
   const onSignIn = async () => {
     const isValid = validateForm(loginOrTg, password);
     if (!isValid) return;
 
     setIsLoading(true);
-    fetchSingIn({ loginOrTg, password });
+    const res = await fetchSingIn({ loginOrTg, password });
+
+    if (!res || res.error) {
+      setIsLoading(false);
+      setErrors((prev) => ({
+        ...prev,
+        loginOrTg: 'Неверный логин или пароль',
+      }));
+    }
   };
 
   const validateForm = (loginOrTg: string, password: string) => {
@@ -117,7 +129,10 @@ export const SignInForm = () => {
             {isLoading ? 'Подождите немного...' : 'Войти'}
           </Button>
           <Link
-            href={routeConfig.signUp}
+            href={{
+              pathname: routeConfig.signUp,
+              query: queryParams,
+            }}
             className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
           >
             Регистрация <ExternalLink size={18} />

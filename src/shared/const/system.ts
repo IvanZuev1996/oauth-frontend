@@ -12,3 +12,4 @@ export const remoteProtocol = process.env.NEXT_PUBLIC_REMOTE_PROTOCOL! as
 
 /* URLS */
 export const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL!;
+export const selfUrl = process.env.NEXT_PUBLIC_SELF_URL!;

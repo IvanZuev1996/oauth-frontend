@@ -10,6 +10,7 @@ import { cookieOptions } from '@/shared/config/cookies/cookiesOptions';
 import {
   apiRoutes,
   authPageRoutes,
+  oauthPageRoutes,
   routeConfig,
 } from '@/shared/config/router/routeConfig';
 import { accessTokenSecret, backendUrl } from '@/shared/const/system';
@@ -92,12 +93,13 @@ export async function middleware(request: NextRequest) {
   const refreshToken = request.cookies.get('refresh_token')?.value;
   const accessToken = request.cookies.get('access_token')?.value;
 
-  /* Ignore static and API routes */
+  /* Ignore static, API and OAuth authorize routes */
   if (
     pathname.startsWith('/.next') ||
     pathname.startsWith('/static') ||
     PUBLIC_FILE.test(pathname) ||
-    apiRoutes.includes(pathname)
+    apiRoutes.includes(pathname) ||
+    oauthPageRoutes.includes(pathname)
   ) {
     return NextResponse.next();
   }

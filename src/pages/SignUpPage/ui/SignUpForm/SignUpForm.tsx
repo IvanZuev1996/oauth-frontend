@@ -7,8 +7,11 @@ import { useEffect, useState } from 'react';
 import { SignUpData } from '@/entities/User';
 import { useSignUpMutation } from '@/entities/User/api/userApi';
 import { routeConfig } from '@/shared/config/router/routeConfig';
+import { RedirectTargets } from '@/shared/const/router';
+import { useAppSearchParams } from '@/shared/lib/hooks/useAppSearchParams/useAppSearchParams';
 import { cn } from '@/shared/lib/utils/cn';
 import { isEmail } from '@/shared/lib/utils/isEmail';
+import { generateURIWithQueryParams } from '@/shared/lib/utils/links';
 import { unwrapError } from '@/shared/lib/utils/unwrapError';
 import { Button, buttonVariants } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input/Input';
@@ -28,6 +31,8 @@ const defaultSignUpData: SignUpData = {
 };
 
 export const SignUpForm = () => {
+  const queryParams = useAppSearchParams();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<SignUpFormErrors>();
   const [data, setData] = useState<SignUpData>(defaultSignUpData);
@@ -36,7 +41,28 @@ export const SignUpForm = () => {
   const [fetchSingUp, { error, isSuccess }] = useSignUpMutation();
 
   useEffect(() => {
-    if (error) {
+    if (!isSuccess) return;
+    let redirectUrl = routeConfig.main;
+
+    if (queryParams.target === RedirectTargets.OAUTH) {
+      redirectUrl = generateURIWithQueryParams(
+        routeConfig.oauthAuthorize,
+        queryParams,
+      );
+    }
+
+    window.location.href = redirectUrl;
+    setIsLoading(false);
+  }, [isSuccess, queryParams]);
+
+  const onSignUp = async () => {
+    const isValid = validateForm(data);
+    if (!isValid) return;
+
+    setIsLoading(true);
+    const res = await fetchSingUp(data);
+
+    if (!res || res.error) {
       const { data } = unwrapError(error);
       data.errors.forEach((fieldError) => {
         if (fieldError) {
@@ -47,21 +73,7 @@ export const SignUpForm = () => {
         }
       });
       setIsLoading(false);
-      return;
     }
-
-    if (isSuccess) {
-      window.location.href = routeConfig.main;
-      setIsLoading(false);
-    }
-  }, [error, isSuccess]);
-
-  const onSignUp = async () => {
-    const isValid = validateForm(data);
-    if (!isValid) return;
-
-    setIsLoading(true);
-    fetchSingUp(data);
   };
 
   const validateForm = (data: SignUpData) => {
@@ -189,7 +201,10 @@ export const SignUpForm = () => {
             {isLoading ? 'Подождите немного...' : 'Зарегистрироваться'}
           </Button>
           <Link
-            href={routeConfig.signIn}
+            href={{
+              pathname: routeConfig.signIn,
+              query: queryParams,
+            }}
             className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
           >
             Уже есть аккаунт? <ExternalLink size={18} />

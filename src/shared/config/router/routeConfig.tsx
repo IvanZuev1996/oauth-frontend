@@ -41,6 +41,7 @@ export const apiRoutesConfig: Record<
 
 /* Specific routes */
 export const authPageRoutes = [routeConfig.signIn, routeConfig.signUp];
+export const oauthPageRoutes = [routeConfig.oauthAuthorize];
 
 export const apiRoutes = [
   routeConfig.authSignIn,
