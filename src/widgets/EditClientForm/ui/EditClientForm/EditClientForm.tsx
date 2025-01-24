@@ -150,7 +150,7 @@ export const EditClientForm: FC<Props> = ({ clientId }) => {
             error={error?.email}
           />
 
-          <HStack className="mt-2">
+          <HStack className="mt-2 max-sm:flex-col max-sm:[&>button]:w-full">
             <Button
               className="w-full"
               onClick={onUpdateClick}

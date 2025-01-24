@@ -41,7 +41,7 @@ export const OAuthAuthorizeForm: FC<OAuthAuthorizeFormProps> = (props) => {
         alt="Логотип приложения"
         width={96}
         height={96}
-        className="aspect-square w-[96px]"
+        className="aspect-square w-[96px] rounded-md"
       />
       <Text as="h1" weight="semibold" className="w-full text-center text-xl">
         Вход с помощью OAuth ID

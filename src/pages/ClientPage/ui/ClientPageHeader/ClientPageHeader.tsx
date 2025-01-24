@@ -1,9 +1,12 @@
 import { LaptopMinimal, Pencil, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
+import { useRouter } from 'next/navigation';
+import { FC, useState } from 'react';
 
 import { ClientWithScopeDetails } from '@/entities/Client';
+import { DeleteClientDialog } from '@/features/DeleteClientDialog';
+import { routeConfig } from '@/shared/config/router/routeConfig';
 import { getRouteEditClient } from '@/shared/const/router';
 import { backendUrl } from '@/shared/const/system';
 import { formatDate } from '@/shared/lib/utils/formatDate';
@@ -17,6 +20,13 @@ type Props = {
 };
 
 export const ClientPageHeader: FC<Props> = ({ data }) => {
+  const router = useRouter();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const onDeleteSuccess = () => {
+    router.replace(routeConfig.main);
+  };
+
   if (!data) {
     return (
       <VStack className="mb-5 gap-1">
@@ -26,21 +36,24 @@ export const ClientPageHeader: FC<Props> = ({ data }) => {
   }
 
   return (
-    <HStack className="mb-5">
-      <Image
-        src={`${backendUrl}${data.img}`}
-        alt="Логотип приложения"
-        width={86}
-        height={86}
-      />
+    <HStack className="mb-5 flex-wrap gap-5">
+      <HStack className="gap-5" max={false}>
+        <Image
+          src={`${backendUrl}${data.img}`}
+          alt="Логотип приложения"
+          width={86}
+          height={86}
+          className="rounded-md object-cover"
+        />
 
-      <VStack className="gap-1">
-        <HStack>
-          <h1>{data.name}</h1>
-          <LaptopMinimal size={18} className="mt-[10px]" />
-        </HStack>
-        <Text variant="secondary">Создано: {formatDate(data.createdAt)}</Text>
-      </VStack>
+        <VStack className="gap-1 overflow-hidden">
+          <HStack className="overflow-hidden [&>svg]:min-w-[18px]">
+            <h1>{data.name}</h1>
+            <LaptopMinimal size={18} className="mt-[10px]" />
+          </HStack>
+          <Text variant="secondary">Создано: {formatDate(data.createdAt)}</Text>
+        </VStack>
+      </HStack>
 
       <HStack className="ml-auto" max={false}>
         <Link
@@ -50,10 +63,21 @@ export const ClientPageHeader: FC<Props> = ({ data }) => {
           <Pencil size={18} />
         </Link>
 
-        <Button size="lg" variant="secondary">
+        <Button
+          size="lg"
+          variant="secondary"
+          onClick={() => setIsDeleteModalOpen(true)}
+        >
           <Trash2 size={18} />
         </Button>
       </HStack>
+
+      <DeleteClientDialog
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setIsDeleteModalOpen}
+        clientDetails={{ name: data.name, clientId: data.clientId }}
+        onDeleteSuccess={onDeleteSuccess}
+      />
     </HStack>
   );
 };

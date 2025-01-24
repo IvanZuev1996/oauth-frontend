@@ -51,7 +51,7 @@ const clientApi = rtkApi.injectEndpoints({
       },
     }),
 
-    deleteClient: builder.query<Client, DeleteClientPayload>({
+    deleteClient: builder.mutation<Client, DeleteClientPayload>({
       query: (body) => {
         return {
           url: '/clients',
@@ -66,7 +66,7 @@ const clientApi = rtkApi.injectEndpoints({
 export const {
   useCreateClientMutation,
   useUpdateClientMutation,
-  useDeleteClientQuery,
+  useDeleteClientMutation,
   useGetClientDataQuery,
   useGetClientsQuery,
   useLazyGetClientDataQuery,

@@ -1,5 +1,5 @@
 .client-item {
-  @apply cursor-pointer rounded-lg border p-2 transition-all hover:bg-accent md:p-5;
+  @apply cursor-pointer gap-5 rounded-lg border p-2 transition-all hover:bg-accent md:p-5;
 }
 
 .client-item h3,

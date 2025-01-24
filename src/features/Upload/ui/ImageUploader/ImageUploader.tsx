@@ -19,8 +19,8 @@ export const ImageUploader: FC<Props> = (props) => {
 
   return (
     <InputGroup label="Иконка сервиса (не более 1МБ)">
-      <HStack className="rounded-lg border border-dashed p-5">
-        <VStack>
+      <HStack className="rounded-lg border border-dashed p-5 max-sm:flex-col-reverse">
+        <VStack className="max-sm:mt-3">
           <ImageUploadButton
             onFileUpload={onFileUpload}
             className={uploadedImage ? 'w-full' : 'w-fit'}
@@ -34,13 +34,15 @@ export const ImageUploader: FC<Props> = (props) => {
           )}
         </VStack>
         {uploadedImage && (
-          <Image
-            src={`${backendUrl}${uploadedImage}`}
-            alt="Иконка сервиса"
-            width={140}
-            height={140}
-            className="h-[140px] w-full rounded-lg object-contain"
-          />
+          <HStack className="justify-center">
+            <Image
+              src={`${backendUrl}${uploadedImage}`}
+              alt="Иконка сервиса"
+              width={140}
+              height={140}
+              className="h-[140px] w-[140px] rounded-lg object-cover"
+            />
+          </HStack>
         )}
       </HStack>
     </InputGroup>

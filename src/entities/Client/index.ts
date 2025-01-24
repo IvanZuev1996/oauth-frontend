@@ -21,7 +21,7 @@ export { ClientEmailField } from './ui/Fields/ClientEmailField/ClientEmailField'
 /* Api */
 export {
   useGetClientDataQuery,
-  useDeleteClientQuery,
+  useDeleteClientMutation,
   useGetClientsQuery,
   useCreateClientMutation,
   useUpdateClientMutation,
