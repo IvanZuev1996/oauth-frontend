@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RefObject, useCallback, useRef } from 'react';
 
+/**
+ * @description Use debounce hook
+ */
 export const useDebounce = (
   callback: (...args: any[]) => void,
   delay: number,

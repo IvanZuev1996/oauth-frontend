@@ -4,6 +4,7 @@ export interface Scope {
   requiresApproval: boolean;
   ttl: number;
   isTtlRefreshable: boolean;
+  description?: string;
   createdAt: Date;
   updatedAt: Date;
 }

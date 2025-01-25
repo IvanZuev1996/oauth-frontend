@@ -2,6 +2,9 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 
 import { cookieOptions } from '@/shared/config/cookies/cookiesOptions';
 
+/**
+ * @description Get cookie by name by client component
+ */
 export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp(
@@ -13,6 +16,9 @@ export function getCookie(name: string) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+/**
+ * @description Set cookie by client component
+ */
 export function setCookie(name: string, val: string, days: number) {
   const date = new Date();
   const value = val;
@@ -23,6 +29,9 @@ export function setCookie(name: string, val: string, days: number) {
     name + '=' + value + '; expires=' + date.toUTCString() + '; path=/';
 }
 
+/**
+ * @description Set auth cookies
+ */
 export const setAuthCookies = (
   access_token: string,
   refresh_token: string,
@@ -40,6 +49,9 @@ export const setAuthCookies = (
   cookieStore.set('access_token', access_token, options);
 };
 
+/**
+ * @description Delete cookie by client component
+ */
 export const deleteCookie = (name: string) => {
   document.cookie = name + '=; max-age=-1; path=/';
 };

@@ -10,6 +10,9 @@ type ErrorToast = {
   field?: string;
 };
 
+/**
+ * @description Get error toast data from res.error
+ */
 export const getErrorToastData = (error?: unknown): ErrorToast => {
   const err = error as ErrorResponse;
   const errorToast: ErrorToast = {

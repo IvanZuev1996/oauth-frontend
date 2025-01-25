@@ -1,5 +1,5 @@
-import React from 'react';
+import { ScopesTable } from '@/widgets/ScopesTable';
 
 export const ScopesPage = () => {
-  return <div>ScopesPage</div>;
+  return <ScopesTable />;
 };

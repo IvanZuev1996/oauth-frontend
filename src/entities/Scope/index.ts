@@ -1,7 +1,7 @@
 /* Config */
 
 /* Lib */
-export { convertScopesToArray } from './lib/utils/scope';
+export { convertScopesToArray, convertTTL } from './lib/utils/scope';
 
 /* Model */
 

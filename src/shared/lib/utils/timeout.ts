@@ -1,5 +1,5 @@
 /**
- * Async timeout
+ * @description Async timeout
  */
 export const timeout = async (delay = 0): Promise<void> => {
   await new Promise((resolve: (v?: unknown) => void) => {

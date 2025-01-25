@@ -1,0 +1,7 @@
+.scopes-table-dropdown__content {
+  @apply min-w-[200px];
+}
+
+.scopes-table-dropdown__content > div[role='menuitem'] {
+  @apply cursor-pointer p-3;
+}
