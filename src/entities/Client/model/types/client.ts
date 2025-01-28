@@ -1,14 +1,21 @@
 export interface Client {
   clientId: string;
   userId: number;
-  clientSecret: string;
+  clientSecret: string | null;
   redirectUri: string;
   name: string;
   companyEmail: string;
   scopes: string[];
   img: string;
+  status: ClientStatusEnum;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export enum ClientStatusEnum {
+  ACTIVE = 'active',
+  REJECTED = 'rejected',
+  PENDING = 'pending',
 }
 
 export interface ClientWithScopeDetails extends Omit<Client, 'scopes'> {
@@ -17,7 +24,7 @@ export interface ClientWithScopeDetails extends Omit<Client, 'scopes'> {
 
 export type ShortClientInfo = Pick<
   Client,
-  'clientId' | 'name' | 'createdAt' | 'img'
+  'clientId' | 'name' | 'createdAt' | 'img' | 'status'
 >;
 
 export type Scopes = {

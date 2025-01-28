@@ -12,6 +12,7 @@ import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
 import { ShortClientInfo } from '../../model/types/client';
+import { ClientStatusBadge } from '../ClientStatusBadge/ClientStatusBadge';
 
 import './ClientItem.css';
 
@@ -21,7 +22,7 @@ type Props = PropsWithClassName & {
 
 export const ClientItem: FC<Props> = ({ client, className }) => {
   return (
-    <Link href={getRouteClientDetails(client.clientId)}>
+    <Link href={getRouteClientDetails(client.clientId)} className="relative">
       <HStack className={cn('client-item', className)}>
         <Image
           src={`${backendUrl}${client.img}`}
@@ -30,6 +31,7 @@ export const ClientItem: FC<Props> = ({ client, className }) => {
           height={86}
         />
         <VStack className="gap-0 overflow-hidden">
+          <ClientStatusBadge status={client.status} className="mb-2" />
           <HStack className="overflow-hidden">
             <Text as="h3">{client?.name}</Text>
             <LaptopMinimal size={18} />

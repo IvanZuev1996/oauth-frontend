@@ -13,7 +13,7 @@ const badgeVariants = cva(
           'border-primary dark:border-transparent bg-primary/10 dark:bg-primary text-primary dark:text-primary-foreground',
         success: 'border-transparent text-primary-foreground  bg-green-500',
         success_outline:
-          'border-green-300 dark:border-green-700 bg-green-100/50 dark:bg-green-700/70 dark:text-primary-foreground',
+          'border-green-300 dark:border-green-700 bg-green-100/50 text-green-600 dark:bg-green-700/70 dark:text-primary-foreground',
         primary: 'border-transparent text-primary-foreground bg-blue-500',
         primary_outline:
           'border-primary/50 text-primary dark:border-primary bg-blue-100/50 dark:bg-blue-600/70  dark:text-primary-foreground',
