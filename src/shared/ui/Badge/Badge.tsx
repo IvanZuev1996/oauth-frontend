@@ -16,7 +16,7 @@ const badgeVariants = cva(
           'border-green-300 dark:border-green-700 bg-green-100/50 text-green-600 dark:bg-green-700/70 dark:text-primary-foreground',
         primary: 'border-transparent text-primary-foreground bg-blue-500',
         primary_outline:
-          'border-primary/50 text-primary dark:border-primary bg-blue-100/50 dark:bg-blue-600/70  dark:text-primary-foreground',
+          'border-primary/20 text-primary dark:border-primary bg-blue-100/50 dark:bg-blue-600/70  dark:text-primary-foreground',
         purple: 'border-transparent  text-primary-foreground  bg-purple-500',
         purple_outline:
           'border-purple-300 dark:border-transparent bg-purple-100/50 dark:bg-purple-500 text-purple-800 dark:text-primary-foreground',
