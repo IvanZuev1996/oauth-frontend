@@ -2,6 +2,7 @@ import { rtkApi } from '@/shared/api/rtkApi';
 
 import {
   Client,
+  ClientStatusEnum,
   ClientWithScopeDetails,
   CreateClientPayload,
   DeleteClientPayload,
@@ -13,14 +14,17 @@ const clientApi = rtkApi.injectEndpoints({
   overrideExisting: true,
 
   endpoints: (builder) => ({
-    getClients: builder.query<ShortClientInfo[], void>({
-      query: () => {
-        return {
-          url: '/clients',
-          method: 'GET',
-        };
+    getClients: builder.query<ShortClientInfo[], { status?: ClientStatusEnum }>(
+      {
+        query: (params) => {
+          return {
+            url: '/clients',
+            method: 'GET',
+            params,
+          };
+        },
       },
-    }),
+    ),
 
     getClientData: builder.query<ClientWithScopeDetails, { clientId: string }>({
       query: ({ clientId }) => {

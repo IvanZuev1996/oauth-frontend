@@ -55,7 +55,8 @@ export const ClientDetails: FC<Props> = ({ data, isLoading }) => {
         />
         <CopiedField
           field="Client secret"
-          value={data.clientSecret || 'Ваше приложение пока на рассмотрении'}
+          value={data.clientSecret || '-'}
+          withCopy={Boolean(data.clientSecret)}
         />
 
         <VStack>

@@ -5,6 +5,7 @@ export enum AppRoutes {
   EDIT_CLIENT = 'editClient',
   SCOPES = 'scopes',
   TOKENS = 'tokens',
+  MODERATION = 'moderation',
 
   /* Api routes */
   AUTH_LOGOUT = 'authLogout',

@@ -2,16 +2,25 @@
 
 import { BadgePlus } from 'lucide-react';
 import Link from 'next/link';
+import { FC } from 'react';
 
-import { ClientItem, useGetClientsQuery } from '@/entities/Client';
+import {
+  ClientItem,
+  ClientStatusEnum,
+  useGetClientsQuery,
+} from '@/entities/Client';
 import { routeConfig } from '@/shared/config/router/routeConfig';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 import { HStack } from '@/shared/ui/Stack';
 
 import './ClientsList.css';
 
-export const ClientsList = () => {
-  const { data, isLoading, isFetching } = useGetClientsQuery();
+type Props = {
+  status?: ClientStatusEnum;
+};
+
+export const ClientsList: FC<Props> = ({ status }) => {
+  const { data, isLoading, isFetching } = useGetClientsQuery({ status });
 
   if (isLoading || isFetching) {
     return (

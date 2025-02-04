@@ -3,6 +3,7 @@ import {
   BadgePlus,
   KeyRound,
   LockKeyholeOpen,
+  Wrench,
 } from 'lucide-react';
 
 import { routeConfig } from '@/shared/config/router/routeConfig';
@@ -11,7 +12,7 @@ import { RootSidebarItemType } from '../model/types/rootSidebar';
 
 export const sidebarMenuBaseItems: RootSidebarItemType[] = [
   {
-    title: 'Мои приложения',
+    title: 'Все приложения',
     url: routeConfig.main,
     icon: LayoutDashboard,
   },
@@ -24,6 +25,11 @@ export const sidebarMenuBaseItems: RootSidebarItemType[] = [
 
 export const sidebarMenuAdminItems: RootSidebarItemType[] = [
   ...sidebarMenuBaseItems,
+  {
+    title: 'На модерации',
+    url: routeConfig.moderation,
+    icon: Wrench,
+  },
   {
     title: 'Права доступа',
     url: routeConfig.scopes,

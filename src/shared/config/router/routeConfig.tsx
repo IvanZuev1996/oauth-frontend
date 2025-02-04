@@ -12,6 +12,7 @@ export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.NEW_CLIENT]: '/clients/add',
   [AppRoutes.SCOPES]: '/scopes',
   [AppRoutes.TOKENS]: '/tokens',
+  [AppRoutes.MODERATION]: '/on-moderation',
 
   /* Auth routes */
   [AppRoutes.SIGN_IN]: '/signin',
