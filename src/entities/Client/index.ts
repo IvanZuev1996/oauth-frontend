@@ -1,4 +1,5 @@
 /* Config */
+export { scopesOptionsConfig } from './config/clientScopesConfig';
 
 /* Lib */
 
@@ -9,6 +10,7 @@ export type {
   Client,
   ClientWithScopeDetails,
   Scopes,
+  ClientScopesOptions,
 } from './model/types/client';
 export { ClientStatusEnum } from './model/types/client';
 

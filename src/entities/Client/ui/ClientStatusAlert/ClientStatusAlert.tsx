@@ -19,6 +19,7 @@ type ClientStatusConfigValue = {
 
 type Props = PropsWithClassName & {
   status: ClientStatusEnum;
+  onModerationClick?: () => void;
 };
 
 const clientStatusesConfig: Record<ClientStatusEnum, ClientStatusConfigValue> =
@@ -58,7 +59,7 @@ const adminStatusesConfig: Record<ClientStatusEnum, ClientStatusConfigValue> = {
     icon: Ban,
   },
   [ClientStatusEnum.PENDING]: {
-    title: 'Требуется действия с приложением',
+    title: 'Требуется действие с приложением',
     description:
       'Вы можете одобрить или отклонить приложение, а также дать дополнительные ограничения на это приложение.',
     variant: 'warning',
@@ -66,7 +67,11 @@ const adminStatusesConfig: Record<ClientStatusEnum, ClientStatusConfigValue> = {
   },
 };
 
-export const ClientStatusAlert: FC<Props> = ({ status, className }) => {
+export const ClientStatusAlert: FC<Props> = ({
+  status,
+  className,
+  onModerationClick,
+}) => {
   const userRole = useUserRole();
   const isAdmin = userRole === 'administrator';
   const statusData = isAdmin
@@ -85,13 +90,16 @@ export const ClientStatusAlert: FC<Props> = ({ status, className }) => {
         <Text variant="secondary">{statusData.description}</Text>
       )}
 
-      <HStack className="justify-end">
-        {isShowActions && (
-          <Button className="h-10 w-full max-w-[220px]">
+      {isShowActions && (
+        <HStack className="mt-3 justify-end">
+          <Button
+            onClick={onModerationClick}
+            className="h-10 w-full max-w-[220px]"
+          >
             Перейти к модерации
           </Button>
-        )}
-      </HStack>
+        </HStack>
+      )}
     </Alert>
   );
 };

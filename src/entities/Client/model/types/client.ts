@@ -1,3 +1,6 @@
+import { ScopeShortData } from '@/entities/Scope';
+import { FromToOptions } from '@/shared/types/general/general';
+
 export interface Client {
   clientId: string;
   userId: number;
@@ -45,6 +48,35 @@ export type ClientFieldOptions = {
   description?: string;
   error?: string;
 };
+
+export interface ClientScopesOptions {
+  /* Только рабочие дни */
+  workingDaysOnly?: boolean;
+
+  /* Время дня в которое будет разрешен доступ */
+  timeOfDay?: FromToOptions;
+
+  /* Дни недели в которые будет разрешен доступ */
+  dayOfWeek?: number[];
+
+  /* Количество запросов в минуту */
+  requestsPerMinute?: number;
+
+  /* Скоупы, которые должны быть выданы */
+  // dependentScopes?: ScopeShortData[];
+
+  /* Список разрешённых IP-адресов */
+  ipWhitelist?: string[];
+
+  /* Список запрещённых IP-адресов */
+  ipBlacklist?: string[];
+
+  /* Список разрешённых стран */
+  geoWhitelist?: string[];
+
+  /* Список запрещённых стран */
+  geoBlacklist?: string[];
+}
 
 /* API Payloads */
 

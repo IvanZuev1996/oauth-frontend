@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 
 import { ClientWithScopeDetails } from '@/entities/Client';
+import { useUserRole } from '@/entities/User';
 import { DeleteClientDialog } from '@/features/DeleteClientDialog';
 import { routeConfig } from '@/shared/config/router/routeConfig';
 import { getRouteEditClient } from '@/shared/const/router';
@@ -21,6 +22,8 @@ type Props = {
 
 export const ClientPageHeader: FC<Props> = ({ data }) => {
   const router = useRouter();
+  const userRole = useUserRole();
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const onDeleteSuccess = () => {
@@ -55,29 +58,33 @@ export const ClientPageHeader: FC<Props> = ({ data }) => {
         </VStack>
       </HStack>
 
-      <HStack className="ml-auto" max={false}>
-        <Link
-          href={getRouteEditClient(data.clientId)}
-          className={buttonVariants({ variant: 'secondary', size: 'lg' })}
-        >
-          <Pencil size={18} />
-        </Link>
+      {userRole === 'user' && (
+        <>
+          <HStack className="ml-auto" max={false}>
+            <Link
+              href={getRouteEditClient(data.clientId)}
+              className={buttonVariants({ variant: 'secondary', size: 'lg' })}
+            >
+              <Pencil size={18} />
+            </Link>
 
-        <Button
-          size="lg"
-          variant="secondary"
-          onClick={() => setIsDeleteModalOpen(true)}
-        >
-          <Trash2 size={18} />
-        </Button>
-      </HStack>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => setIsDeleteModalOpen(true)}
+            >
+              <Trash2 size={18} />
+            </Button>
+          </HStack>
 
-      <DeleteClientDialog
-        isOpen={isDeleteModalOpen}
-        setIsOpen={setIsDeleteModalOpen}
-        clientDetails={{ name: data.name, clientId: data.clientId }}
-        onDeleteSuccess={onDeleteSuccess}
-      />
+          <DeleteClientDialog
+            isOpen={isDeleteModalOpen}
+            setIsOpen={setIsDeleteModalOpen}
+            clientDetails={{ name: data.name, clientId: data.clientId }}
+            onDeleteSuccess={onDeleteSuccess}
+          />
+        </>
+      )}
     </HStack>
   );
 };

@@ -10,6 +10,7 @@ import {
   useGetClientsQuery,
 } from '@/entities/Client';
 import { routeConfig } from '@/shared/config/router/routeConfig';
+import { EmptyData } from '@/shared/ui/EmptyData/EmptyData';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 import { HStack } from '@/shared/ui/Stack';
 
@@ -32,7 +33,17 @@ export const ClientsList: FC<Props> = ({ status }) => {
     );
   }
 
-  if (!data || !data.length) {
+  const isEmpty = !data || !data.length;
+
+  if (isEmpty && status === ClientStatusEnum.PENDING) {
+    return (
+      <HStack className="clients-list">
+        <EmptyData text="Нет приложений на модерации." />
+      </HStack>
+    );
+  }
+
+  if (isEmpty) {
     return (
       <HStack className="clients-list">
         <Link href={routeConfig.newClient}>

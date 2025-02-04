@@ -1,13 +1,14 @@
 'use client';
 
 import { CloudAlert } from 'lucide-react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import {
   ClientScopes,
   ClientStatusAlert,
   ClientWithScopeDetails,
 } from '@/entities/Client';
+import { ClientModerationModal } from '@/features/ClientModerationModal';
 import { CopiedField } from '@/features/CopiedField';
 import { formatDate } from '@/shared/lib/utils/formatDate';
 import { Loader } from '@/shared/ui/Loader/Loader';
@@ -22,6 +23,8 @@ type Props = {
 };
 
 export const ClientDetails: FC<Props> = ({ data, isLoading }) => {
+  const [isModerationModalOpen, setIsModerationModalOpen] = useState(false);
+
   if (isLoading) {
     return (
       <HStack className="client-details__loader">
@@ -43,7 +46,11 @@ export const ClientDetails: FC<Props> = ({ data, isLoading }) => {
 
   return (
     <VStack>
-      <ClientStatusAlert status={data.status} className="mb-5" />
+      <ClientStatusAlert
+        status={data.status}
+        onModerationClick={() => setIsModerationModalOpen(true)}
+        className="mb-5"
+      />
 
       <div className="client-details">
         <CopiedField field="Почта для связи" value={data.companyEmail} />
@@ -68,6 +75,12 @@ export const ClientDetails: FC<Props> = ({ data, isLoading }) => {
 
         <CopiedField field="Redirect URI" value={data.redirectUri} />
       </div>
+
+      <ClientModerationModal
+        isOpen={isModerationModalOpen}
+        client={data}
+        onOpenChange={setIsModerationModalOpen}
+      />
     </VStack>
   );
 };

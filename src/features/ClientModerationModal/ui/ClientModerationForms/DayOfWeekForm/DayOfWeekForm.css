@@ -1,0 +1,7 @@
+.day-of-week-form {
+  @apply mt-2 grid w-full grid-cols-1 gap-3 md:grid-cols-[repeat(auto-fill,minmax(250px,1fr))];
+}
+
+.day-of-week-form__item {
+  @apply cursor-pointer rounded-sm border p-2;
+}

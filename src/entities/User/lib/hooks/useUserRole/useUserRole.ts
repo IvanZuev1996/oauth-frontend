@@ -9,6 +9,6 @@ import { getUserSelector } from '../../../model/selectors/user';
  */
 export const useUserRole = (): UserRoles => {
   const user = useAppSelector(getUserSelector);
-  if (!user) return 'webmaster';
+  if (!user) return 'user';
   return userRolesConfig[user.roleId];
 };
