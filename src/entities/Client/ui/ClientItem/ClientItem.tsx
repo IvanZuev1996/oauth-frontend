@@ -23,7 +23,10 @@ type Props = PropsWithClassName & {
 export const ClientItem: FC<Props> = ({ client, className }) => {
   return (
     <Link href={getRouteClientDetails(client.clientId)} className="relative">
-      <HStack className={cn('client-item', className)}>
+      <HStack
+        className={cn('client-item', className)}
+        data-banned={client.isBanned}
+      >
         <Image
           src={`${backendUrl}${client.img}`}
           alt="Логотип приложения"
@@ -31,7 +34,11 @@ export const ClientItem: FC<Props> = ({ client, className }) => {
           height={86}
         />
         <VStack className="gap-0 overflow-hidden">
-          <ClientStatusBadge status={client.status} className="mb-2" />
+          <ClientStatusBadge
+            status={client.status}
+            isBanned={client.isBanned}
+            className="mb-2"
+          />
           <HStack className="overflow-hidden">
             <Text as="h3">{client?.name}</Text>
             <LaptopMinimal size={18} />

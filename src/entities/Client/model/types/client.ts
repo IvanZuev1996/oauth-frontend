@@ -10,6 +10,7 @@ export interface Client {
   scopes: string[];
   img: string;
   status: ClientStatusEnum;
+  isBanned: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,7 +27,7 @@ export interface ClientWithScopeDetails extends Omit<Client, 'scopes'> {
 
 export type ShortClientInfo = Pick<
   Client,
-  'clientId' | 'name' | 'createdAt' | 'img' | 'status'
+  'clientId' | 'name' | 'createdAt' | 'img' | 'status' | 'isBanned'
 >;
 
 export type Scopes = {
@@ -87,6 +88,7 @@ export type CreateClientPayload = Pick<
 export type UpdateClientPayload = CreateClientPayload &
   Pick<Client, 'clientId'>;
 
+export type BanClientPayload = Pick<Client, 'clientId' | 'isBanned'>;
 export type DeleteClientPayload = Pick<Client, 'clientId'>;
 
 export type ChangeClientStatusPayload = Pick<Client, 'clientId'> & {

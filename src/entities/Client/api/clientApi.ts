@@ -1,6 +1,7 @@
 import { rtkApi } from '@/shared/api/rtkApi';
 
 import {
+  BanClientPayload,
   ChangeClientStatusPayload,
   Client,
   ClientStatusEnum,
@@ -56,6 +57,39 @@ const clientApi = rtkApi.injectEndpoints({
       },
     }),
 
+    banClient: builder.mutation<{ isBanned: boolean }, BanClientPayload>({
+      query: (body) => {
+        return {
+          url: '/clients/ban',
+          method: 'PATCH',
+          body,
+        };
+      },
+      async onQueryStarted(
+        { clientId, isBanned },
+        { dispatch, queryFulfilled },
+      ) {
+        try {
+          await queryFulfilled;
+          dispatch(
+            clientApi.util.updateQueryData(
+              'getClientData',
+              { clientId },
+              (draft) => {
+                draft.isBanned = isBanned;
+              },
+            ),
+          );
+          dispatch(
+            clientApi.util.updateQueryData('getClients', {}, (draft) => {
+              const index = draft.findIndex((c) => c.clientId === clientId);
+              if (index !== -1) draft[index].isBanned = isBanned;
+            }),
+          );
+        } catch (_) {}
+      },
+    }),
+
     updateClientStatus: builder.mutation<Client, ChangeClientStatusPayload>({
       query: (body) => {
         return {
@@ -105,6 +139,7 @@ export const {
   useUpdateClientMutation,
   useDeleteClientMutation,
   useUpdateClientStatusMutation,
+  useBanClientMutation,
 
   /* Queries */
   useGetClientDataQuery,

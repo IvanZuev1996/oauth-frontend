@@ -33,4 +33,5 @@ export {
   useUpdateClientMutation,
   useLazyGetClientDataQuery,
   useUpdateClientStatusMutation,
+  useBanClientMutation,
 } from './api/clientApi';

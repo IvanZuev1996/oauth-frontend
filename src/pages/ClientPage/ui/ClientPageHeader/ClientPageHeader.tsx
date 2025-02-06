@@ -1,4 +1,4 @@
-import { LaptopMinimal, Pencil, Trash2 } from 'lucide-react';
+import { Ban, LaptopMinimal, Pencil, Trash2, Undo2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -6,6 +6,7 @@ import { FC, useState } from 'react';
 
 import { ClientWithScopeDetails } from '@/entities/Client';
 import { useUserRole } from '@/entities/User';
+import { BanClientDialog } from '@/features/BanClientDialog';
 import { DeleteClientDialog } from '@/features/DeleteClientDialog';
 import { routeConfig } from '@/shared/config/router/routeConfig';
 import { getRouteEditClient } from '@/shared/const/router';
@@ -25,6 +26,7 @@ export const ClientPageHeader: FC<Props> = ({ data }) => {
   const userRole = useUserRole();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isBanModalOpen, setIsBanModalOpen] = useState(false);
 
   const onDeleteSuccess = () => {
     router.replace(routeConfig.main);
@@ -58,7 +60,7 @@ export const ClientPageHeader: FC<Props> = ({ data }) => {
         </VStack>
       </HStack>
 
-      {userRole === 'user' && (
+      {userRole === 'user' ? (
         <>
           <HStack className="ml-auto" max={false}>
             <Link
@@ -82,6 +84,29 @@ export const ClientPageHeader: FC<Props> = ({ data }) => {
             setIsOpen={setIsDeleteModalOpen}
             clientDetails={{ name: data.name, clientId: data.clientId }}
             onDeleteSuccess={onDeleteSuccess}
+          />
+        </>
+      ) : (
+        <>
+          <Button
+            size="lg"
+            variant="secondary"
+            onClick={() => setIsBanModalOpen(true)}
+            className="ml-auto"
+          >
+            {data.isBanned ? <Undo2 size={18} /> : <Ban size={18} />}
+            {data.isBanned ? 'Разблокировать' : 'Заблокировать'}
+          </Button>
+
+          <BanClientDialog
+            isOpen={isBanModalOpen}
+            setIsOpen={setIsBanModalOpen}
+            clientDetails={{
+              name: data.name,
+              clientId: data.clientId,
+              isBanned: data.isBanned,
+            }}
+            onBanSuccess={() => {}}
           />
         </>
       )}

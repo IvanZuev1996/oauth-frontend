@@ -9,6 +9,7 @@ import { ClientStatusEnum } from '../../model/types/client';
 
 type Props = PropsWithClassName & {
   status: ClientStatusEnum;
+  isBanned?: boolean;
 };
 
 const clientStatusBadgeConfig: Record<
@@ -32,7 +33,20 @@ const clientStatusBadgeConfig: Record<
   },
 };
 
-export const ClientStatusBadge: FC<Props> = ({ status, className }) => {
+export const ClientStatusBadge: FC<Props> = (props) => {
+  const { status, isBanned, className } = props;
+
+  if (isBanned) {
+    return (
+      <Badge variant="destructive_outline" className={className}>
+        <HStack className="gap-1">
+          <Ban size={16} />
+          Заблокировано
+        </HStack>
+      </Badge>
+    );
+  }
+
   const badgeData = clientStatusBadgeConfig[status];
 
   return (

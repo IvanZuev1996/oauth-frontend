@@ -2,6 +2,10 @@
   @apply cursor-pointer gap-5 rounded-lg border p-2 transition-all hover:bg-accent md:p-5;
 }
 
+.client-item[data-banned='true'] {
+  @apply border border-destructive/50 bg-destructive/10 hover:bg-destructive/15;
+}
+
 .client-item h3,
 .client-item p,
 .client-item span {

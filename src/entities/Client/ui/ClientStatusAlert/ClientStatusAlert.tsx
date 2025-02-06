@@ -19,6 +19,7 @@ type ClientStatusConfigValue = {
 
 type Props = PropsWithClassName & {
   status: ClientStatusEnum;
+  isBanned?: boolean;
   onModerationClick?: () => void;
 };
 
@@ -67,11 +68,9 @@ const adminStatusesConfig: Record<ClientStatusEnum, ClientStatusConfigValue> = {
   },
 };
 
-export const ClientStatusAlert: FC<Props> = ({
-  status,
-  className,
-  onModerationClick,
-}) => {
+export const ClientStatusAlert: FC<Props> = (props) => {
+  const { status, className, isBanned, onModerationClick } = props;
+
   const userRole = useUserRole();
   const isAdmin = userRole === 'administrator';
   const statusData = isAdmin
@@ -79,6 +78,21 @@ export const ClientStatusAlert: FC<Props> = ({
     : clientStatusesConfig[status];
 
   const isShowActions = status === ClientStatusEnum.PENDING && isAdmin;
+
+  if (isBanned) {
+    return (
+      <Alert variant="destructive" className={className}>
+        <Ban size={18} className="mt-[2px]" />
+        <Text className="text-base" weight="medium">
+          Приложение заблокировано администратором
+        </Text>
+        <Text variant="secondary">
+          {isAdmin ? 'Это' : 'Ваше'} приложение больше не может получать
+          авторизации
+        </Text>
+      </Alert>
+    );
+  }
 
   return (
     <Alert variant={statusData.variant} className={className}>

@@ -48,6 +48,7 @@ export const ClientDetails: FC<Props> = ({ data, isLoading }) => {
     <VStack>
       <ClientStatusAlert
         status={data.status}
+        isBanned={data.isBanned}
         onModerationClick={() => setIsModerationModalOpen(true)}
         className="mb-5"
       />
