@@ -42,7 +42,7 @@ export const ClientPageHeader: FC<Props> = ({ data }) => {
 
   return (
     <HStack className="mb-5 flex-wrap gap-5">
-      <HStack className="gap-5" max={false}>
+      <HStack className="gap-5 overflow-hidden" max={false}>
         <Image
           src={`${backendUrl}${data.img}`}
           alt="Логотип приложения"
