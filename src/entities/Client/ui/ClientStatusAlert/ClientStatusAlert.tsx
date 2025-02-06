@@ -72,7 +72,7 @@ export const ClientStatusAlert: FC<Props> = (props) => {
   const { status, className, isBanned, onModerationClick } = props;
 
   const userRole = useUserRole();
-  const isAdmin = userRole === 'administrator';
+  const isAdmin = userRole === 'admin';
   const statusData = isAdmin
     ? adminStatusesConfig[status]
     : clientStatusesConfig[status];

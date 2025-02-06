@@ -11,6 +11,6 @@ export const getSidebarMenuItemsByUserRole = (roleId?: number) => {
   const userRole = userRolesConfig[roleId];
   if (!userRole) return [];
 
-  if (userRole === 'administrator') return sidebarMenuAdminItems;
+  if (userRole === 'admin') return sidebarMenuAdminItems;
   return sidebarMenuBaseItems;
 };

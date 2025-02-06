@@ -52,7 +52,6 @@ export const SignUpForm = () => {
     }
 
     window.location.href = redirectUrl;
-    setIsLoading(false);
   }, [isSuccess, queryParams]);
 
   const onSignUp = async () => {

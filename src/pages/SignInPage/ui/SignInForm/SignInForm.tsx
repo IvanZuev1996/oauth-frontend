@@ -47,7 +47,6 @@ export const SignInForm = () => {
     }
 
     window.location.href = redirectUrl;
-    setIsLoading(false);
   }, [isSuccess, queryParams]);
 
   const onSignIn = async () => {

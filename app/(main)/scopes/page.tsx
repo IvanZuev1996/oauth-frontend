@@ -4,7 +4,7 @@ import { ScopesPage } from '@/pages/ScopesPage';
 
 export default function Scopes() {
   return (
-    <RoleProvider targetRoles={['administrator']}>
+    <RoleProvider targetRoles={['admin']}>
       <PageContentLayout title="Права доступа / Scopes">
         <ScopesPage />
       </PageContentLayout>

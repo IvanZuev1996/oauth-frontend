@@ -4,7 +4,7 @@ import { TokensPage } from '@/pages/TokensPage';
 
 export default function Tokens() {
   return (
-    <RoleProvider targetRoles={['administrator']}>
+    <RoleProvider targetRoles={['admin']}>
       <PageContentLayout title="Выданные токены">
         <TokensPage />
       </PageContentLayout>

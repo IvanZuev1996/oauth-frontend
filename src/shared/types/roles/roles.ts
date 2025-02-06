@@ -1,2 +1,2 @@
-export type UserRoles = 'administrator' | 'user';
-export type UserRolesWithoutAdmin = Exclude<UserRoles, 'administrator'>;
+export type UserRoles = 'admin' | 'user';
+export type UserRolesWithoutAdmin = Exclude<UserRoles, 'admin'>;

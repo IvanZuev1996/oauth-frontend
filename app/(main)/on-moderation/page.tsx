@@ -5,7 +5,7 @@ import { OnModerationPage } from '@/pages/OnModerationPage';
 export default function OnModeration() {
   return (
     <PageContentLayout title="Приложения на модерации">
-      <RoleProvider targetRoles={['administrator']}>
+      <RoleProvider targetRoles={['admin']}>
         <OnModerationPage />
       </RoleProvider>
     </PageContentLayout>

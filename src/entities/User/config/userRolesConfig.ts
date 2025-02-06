@@ -1,7 +1,6 @@
 import { UserRoles } from '@/shared/types/roles/roles';
 
 export const userRolesConfig: Record<number, UserRoles> = {
-  1: 'administrator',
+  1: 'admin',
   2: 'user',
-  3: 'user',
 };

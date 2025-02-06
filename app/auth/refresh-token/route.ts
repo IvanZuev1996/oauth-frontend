@@ -36,9 +36,9 @@ export async function POST() {
   } catch (_) {
     const options = {
       path: '/',
-      maxAge: -1,
       domain: selfDomain,
-      secure: true,
+      secure: process.env.NEXT_PUBLIC_MODE === 'production',
+      expires: new Date(0),
     };
     const response = NextResponse.json(
       { error: 'unauthorized' },

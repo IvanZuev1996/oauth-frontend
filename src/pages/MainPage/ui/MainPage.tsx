@@ -8,7 +8,7 @@ export const MainPage = () => {
   return (
     <>
       <h1 className="mb-5">
-        {userRole === 'administrator' ? 'Все' : 'Мои'} приложения
+        {userRole === 'admin' ? 'Все' : 'Мои'} приложения
       </h1>
       <ClientsList />
     </>
