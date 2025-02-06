@@ -3,5 +3,9 @@
 }
 
 .day-of-week-form__item {
-  @apply cursor-pointer rounded-sm border p-2;
+  @apply cursor-pointer rounded-sm border p-2 transition-all;
+}
+
+.day-of-week-form__item[data-active='true'] {
+  @apply bg-foreground/5;
 }

@@ -1,9 +1,9 @@
+import { ClientScopeLimit } from '@/entities/Client';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
 
-import { clientModerationActions } from '../../../model/slice/clientModerationSlice';
-import { getClientModerationFormDataSelector } from '../../../selectors/clientModerationSelectors';
-import { ClientModerationForm } from '../../ClientModerationForm/ClientModerationForm';
+import { getClientModerationFormDataSelector } from '../../../../model/selectors/clientModerationSelectors';
+import { clientModerationActions } from '../../../../model/slice/clientModerationSlice';
 
 export const OnlyWorkingDaysForm = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ export const OnlyWorkingDaysForm = () => {
   };
 
   return (
-    <ClientModerationForm
+    <ClientScopeLimit
       option="workingDaysOnly"
       checked={workingDaysOnly ?? false}
       onChange={onCheckedChange}

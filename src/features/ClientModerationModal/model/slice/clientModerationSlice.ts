@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { ClientScopesOptions } from '@/entities/Client';
 import { FromToOptions } from '@/shared/types/general/general';
 
 import { ClientModerationSchema } from '../types/clientModeration';
-import { ScopeShortData } from '@/entities/Scope';
+
+export const defaultClientModerationData: ClientScopesOptions = {};
 
 const initialState: ClientModerationSchema = {
-  data: {},
+  data: defaultClientModerationData,
 };
 
 const clientModerationSlice = createSlice({
@@ -32,12 +34,7 @@ const clientModerationSlice = createSlice({
     ) => {
       state.data.requestsPerMinute = payload;
     },
-    setDependentScopes: (
-      state,
-      { payload }: PayloadAction<ScopeShortData[] | undefined>,
-    ) => {
-      state.data.dependentScopes = payload;
-    },
+
     setIpWhitelist: (
       state,
       { payload }: PayloadAction<string[] | undefined>,

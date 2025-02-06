@@ -1,4 +1,3 @@
-import { ScopeShortData } from '@/entities/Scope';
 import { FromToOptions } from '@/shared/types/general/general';
 
 export interface Client {
@@ -89,3 +88,8 @@ export type UpdateClientPayload = CreateClientPayload &
   Pick<Client, 'clientId'>;
 
 export type DeleteClientPayload = Pick<Client, 'clientId'>;
+
+export type ChangeClientStatusPayload = Pick<Client, 'clientId'> & {
+  status: ClientStatusEnum;
+  options?: ClientScopesOptions;
+};

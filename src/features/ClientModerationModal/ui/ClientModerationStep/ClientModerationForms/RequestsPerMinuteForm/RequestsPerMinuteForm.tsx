@@ -1,14 +1,14 @@
 import React from 'react';
 
+import { ClientScopeLimit } from '@/entities/Client';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
 import { InputGroup } from '@/shared/ui/InputGroup/InputGroup';
 import { NumericInput } from '@/shared/ui/NumericInput/NumericInput';
 import { Separator } from '@/shared/ui/Separator/Separator';
 
-import { clientModerationActions } from '../../../model/slice/clientModerationSlice';
-import { getClientModerationFormDataSelector } from '../../../selectors/clientModerationSelectors';
-import { ClientModerationForm } from '../../ClientModerationForm/ClientModerationForm';
+import { getClientModerationFormDataSelector } from '../../../../model/selectors/clientModerationSelectors';
+import { clientModerationActions } from '../../../../model/slice/clientModerationSlice';
 
 export const RequestsPerMinuteForm = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +29,7 @@ export const RequestsPerMinuteForm = () => {
   };
 
   return (
-    <ClientModerationForm
+    <ClientScopeLimit
       option="requestsPerMinute"
       checked={requestsPerMinute !== undefined}
       onChange={onCheckedChange}
@@ -42,10 +42,11 @@ export const RequestsPerMinuteForm = () => {
               value={requestsPerMinute || 1}
               max={100_000}
               onChange={onChangeRequestsPerMinute}
+              className="max-w-[340px]"
             />
           </InputGroup>
         </>
       )}
-    </ClientModerationForm>
+    </ClientScopeLimit>
   );
 };

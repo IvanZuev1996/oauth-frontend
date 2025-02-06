@@ -22,6 +22,7 @@ export { ClientRedirectURIField } from './ui/Fields/ClientRedirectURIField/Clien
 export { ClientEmailField } from './ui/Fields/ClientEmailField/ClientEmailField';
 export { ClientStatusAlert } from './ui/ClientStatusAlert/ClientStatusAlert';
 export { ClientStatusBadge } from './ui/ClientStatusBadge/ClientStatusBadge';
+export { ClientScopeLimit } from './ui/ClientScopeLimit/ClientScopeLimit';
 
 /* Api */
 export {
@@ -31,4 +32,5 @@ export {
   useCreateClientMutation,
   useUpdateClientMutation,
   useLazyGetClientDataQuery,
+  useUpdateClientStatusMutation,
 } from './api/clientApi';

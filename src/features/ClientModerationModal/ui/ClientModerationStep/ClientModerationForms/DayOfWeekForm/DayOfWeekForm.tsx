@@ -1,12 +1,12 @@
+import { ClientScopeLimit } from '@/entities/Client';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import { HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
-import { clientModerationActions } from '../../../model/slice/clientModerationSlice';
-import { getClientModerationFormDataSelector } from '../../../selectors/clientModerationSelectors';
-import { ClientModerationForm } from '../../ClientModerationForm/ClientModerationForm';
+import { getClientModerationFormDataSelector } from '../../../../model/selectors/clientModerationSelectors';
+import { clientModerationActions } from '../../../../model/slice/clientModerationSlice';
 
 import './DayOfWeekForm.css';
 
@@ -66,7 +66,7 @@ export const DayOfWeekForm = () => {
   };
 
   return (
-    <ClientModerationForm
+    <ClientScopeLimit
       option="dayOfWeek"
       checked={Boolean(dayOfWeek)}
       onChange={onCheckedChange}
@@ -77,6 +77,7 @@ export const DayOfWeekForm = () => {
             <HStack
               key={idx}
               className="day-of-week-form__item"
+              data-active={dayOfWeek.includes(day.value)}
               onClick={() => onChangeDayOfWeek(day.value)}
             >
               <Text>{day.label}</Text>
@@ -88,6 +89,6 @@ export const DayOfWeekForm = () => {
           ))}
         </div>
       )}
-    </ClientModerationForm>
+    </ClientScopeLimit>
   );
 };

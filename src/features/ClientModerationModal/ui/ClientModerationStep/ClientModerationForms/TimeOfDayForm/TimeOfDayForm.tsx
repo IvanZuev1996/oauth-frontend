@@ -1,5 +1,7 @@
+import { ClientScopeLimit } from '@/entities/Client';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
+import { getHour } from '@/shared/lib/utils/dates';
 import {
   Select,
   SelectContent,
@@ -11,9 +13,8 @@ import { Separator } from '@/shared/ui/Separator/Separator';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
-import { clientModerationActions } from '../../../model/slice/clientModerationSlice';
-import { getClientModerationFormDataSelector } from '../../../selectors/clientModerationSelectors';
-import { ClientModerationForm } from '../../ClientModerationForm/ClientModerationForm';
+import { getClientModerationFormDataSelector } from '../../../../model/selectors/clientModerationSelectors';
+import { clientModerationActions } from '../../../../model/slice/clientModerationSlice';
 
 export const TimeOfDayForm = () => {
   const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ export const TimeOfDayForm = () => {
   };
 
   return (
-    <ClientModerationForm
+    <ClientScopeLimit
       option="timeOfDay"
       checked={Boolean(timeOfDay)}
       onChange={onCheckedChange}
@@ -75,7 +76,7 @@ export const TimeOfDayForm = () => {
                     value={String(index)}
                     disabled={index >= timeOfDay.to}
                   >
-                    {index.toString().padStart(2, '0')}:00
+                    {getHour(index)}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -95,7 +96,7 @@ export const TimeOfDayForm = () => {
                     value={String(index)}
                     disabled={index <= timeOfDay.from}
                   >
-                    {index.toString().padStart(2, '0')}:00
+                    {getHour(index)}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -103,6 +104,6 @@ export const TimeOfDayForm = () => {
           </HStack>
         </VStack>
       )}
-    </ClientModerationForm>
+    </ClientScopeLimit>
   );
 };

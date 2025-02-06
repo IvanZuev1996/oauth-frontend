@@ -1,6 +1,7 @@
 import { rtkApi } from '@/shared/api/rtkApi';
 
 import {
+  ChangeClientStatusPayload,
   Client,
   ClientStatusEnum,
   ClientWithScopeDetails,
@@ -55,6 +56,37 @@ const clientApi = rtkApi.injectEndpoints({
       },
     }),
 
+    updateClientStatus: builder.mutation<Client, ChangeClientStatusPayload>({
+      query: (body) => {
+        return {
+          url: '/clients/status',
+          body,
+          method: 'PATCH',
+        };
+      },
+      async onQueryStarted({ clientId, status }, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            clientApi.util.updateQueryData(
+              'getClientData',
+              { clientId },
+              (draft) => {
+                draft.status = status;
+                draft.clientSecret = data.clientSecret;
+              },
+            ),
+          );
+          dispatch(
+            clientApi.util.updateQueryData('getClients', {}, (draft) => {
+              const index = draft.findIndex((c) => c.clientId === clientId);
+              if (index !== -1) draft[index].status = status;
+            }),
+          );
+        } catch (_) {}
+      },
+    }),
+
     deleteClient: builder.mutation<Client, DeleteClientPayload>({
       query: (body) => {
         return {
@@ -68,9 +100,13 @@ const clientApi = rtkApi.injectEndpoints({
 });
 
 export const {
+  /* Mutations */
   useCreateClientMutation,
   useUpdateClientMutation,
   useDeleteClientMutation,
+  useUpdateClientStatusMutation,
+
+  /* Queries */
   useGetClientDataQuery,
   useGetClientsQuery,
   useLazyGetClientDataQuery,

@@ -14,7 +14,11 @@ import { ClientScopesOptions } from '../model/types/client';
 
 export const scopesOptionsConfig: Record<
   keyof ClientScopesOptions,
-  { name: string; description: string; icon: LucideIcon }
+  {
+    name: string;
+    description: string;
+    icon: LucideIcon;
+  }
 > = {
   workingDaysOnly: {
     icon: CalendarCheck,

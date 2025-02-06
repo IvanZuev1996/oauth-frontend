@@ -12,11 +12,11 @@ type Props = React.ComponentProps<'input'> & {
 const Input = React.forwardRef<HTMLInputElement, Props>(
   ({ className, type, error, ...props }, ref) => {
     return (
-      <div className="relative block">
+      <div className={cn('relative block', className)}>
         <div className="input__wrap" data-error={Boolean(error)}>
           <input
             type={type}
-            className={cn('input', className)}
+            className="input"
             ref={ref}
             autoComplete="off"
             {...props}
