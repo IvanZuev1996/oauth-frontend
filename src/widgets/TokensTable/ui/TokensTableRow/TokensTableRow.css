@@ -1,0 +1,7 @@
+.tokens-table-dropdown__content {
+  @apply min-w-[200px];
+}
+
+.tokens-table-dropdown__content > div[role='menuitem'] {
+  @apply cursor-pointer p-3;
+}

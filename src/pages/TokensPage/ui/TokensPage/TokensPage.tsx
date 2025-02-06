@@ -1,5 +1,5 @@
-import React from 'react';
+import { TokensTable } from '@/widgets/TokensTable';
 
 export const TokensPage = () => {
-  return <div>TokensPage</div>;
+  return <TokensTable />;
 };
