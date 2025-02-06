@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import { Scope, useGetScopesListQuery } from '@/entities/Scope';
-import { RevokeScopeModal } from '@/features/RevokeScopeModal';
+import { ScopeStatusEnum, useGetScopesListQuery } from '@/entities/Scope';
+import { ChangeScopeStatusModal } from '@/features/ChangeScopeStatusModal';
 import { ScopeSheet } from '@/features/ScopeSheet';
 import {
   EmptyTableRow,
@@ -16,18 +16,32 @@ import { ScopesTableRow } from '../ScopesTableRow/ScopesTableRow';
 import './ScopesTable.css';
 
 export const ScopesTable = () => {
-  const [revokeModalOpen, setRevokeModalOpen] = useState(false);
+  const [changeStatusModalOpen, setChangeStatusModalOpen] = useState(false);
   const [scopeSheetOpen, setScopeSheetOpen] = useState(false);
-  const [selectedScope, setSelectedScope] = useState<Scope>();
+  const [selectedScope, setSelectedScope] = useState<{
+    key: string;
+    status: ScopeStatusEnum;
+  }>();
 
   const { data, isLoading, isFetching } = useGetScopesListQuery({
     query: undefined,
   });
 
-  const onOpenExtraContent = (scope: Scope, action: 'revoke' | 'details') => {
+  const onOpenExtraContent = (
+    key: string,
+    status: ScopeStatusEnum,
+    action: 'revoke' | 'details',
+  ) => {
     if (action === 'details') setScopeSheetOpen(true);
-    if (action === 'revoke') setRevokeModalOpen(true);
-    setSelectedScope(scope);
+    if (action === 'revoke') setChangeStatusModalOpen(true);
+    setSelectedScope({ key, status });
+  };
+
+  const getNewScopeStatus = () => {
+    if (selectedScope?.status === ScopeStatusEnum.ACTIVE) {
+      return ScopeStatusEnum.REVOKED;
+    }
+    return ScopeStatusEnum.ACTIVE;
   };
 
   const renderRows = () => {
@@ -45,8 +59,12 @@ export const ScopesTable = () => {
       <ScopesTableRow
         isHeader={false}
         data={scope}
-        onSeeDetails={() => onOpenExtraContent(scope, 'details')}
-        onRevokeScope={() => onOpenExtraContent(scope, 'revoke')}
+        onSeeDetails={() =>
+          onOpenExtraContent(scope.key, scope.status, 'details')
+        }
+        onRevokeScope={() =>
+          onOpenExtraContent(scope.key, scope.status, 'revoke')
+        }
         key={idx}
       />
     ));
@@ -60,11 +78,12 @@ export const ScopesTable = () => {
           <ScopeSheet
             isOpen={scopeSheetOpen}
             setIsOpen={setScopeSheetOpen}
-            scopeData={selectedScope}
+            scopeKey={selectedScope.key}
           />
-          <RevokeScopeModal
-            isOpen={revokeModalOpen}
-            setIsOpen={setRevokeModalOpen}
+          <ChangeScopeStatusModal
+            newStatus={getNewScopeStatus()}
+            isOpen={changeStatusModalOpen}
+            setIsOpen={setChangeStatusModalOpen}
             scopeKey={selectedScope.key}
           />
         </>

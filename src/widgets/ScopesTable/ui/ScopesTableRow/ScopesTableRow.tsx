@@ -1,7 +1,8 @@
-import { Ban, Ellipsis, Settings, Unplug } from 'lucide-react';
+import { Ban, Check, Ellipsis, Settings, Undo2, Unplug } from 'lucide-react';
 import { FC, useState } from 'react';
 
-import { convertTTL, Scope } from '@/entities/Scope';
+import { convertTTL, ScopeListItem, ScopeStatusEnum } from '@/entities/Scope';
+import { cn } from '@/shared/lib/utils/cn';
 import { Button } from '@/shared/ui/Button/Button';
 import {
   DropdownMenu,
@@ -21,7 +22,7 @@ type HeaderProps = {
 };
 type DataProps = {
   isHeader: false;
-  data: Scope;
+  data: ScopeListItem;
   onSeeDetails: () => void;
   onRevokeScope: () => void;
 };
@@ -35,6 +36,7 @@ export const ScopesTableRow: FC<Props> = (props) => {
   if (isHeader) {
     return (
       <TableRow data-header={isHeader}>
+        <TableCell className="!w-[50px] !flex-none"></TableCell>
         <TableCell>Ключ</TableCell>
         <TableCell>Название</TableCell>
         <TableCell>Время жизни (мин.)</TableCell>
@@ -44,8 +46,21 @@ export const ScopesTableRow: FC<Props> = (props) => {
     );
   }
 
+  const isRevoked = props.data.status === ScopeStatusEnum.REVOKED;
+
   return (
-    <TableRow className="!border-b-0" data-focused={isMenuOpen}>
+    <TableRow
+      className="!border-b-0"
+      data-focused={isMenuOpen}
+      data-error={isRevoked}
+    >
+      <TableCell className="!w-[50px] !flex-none">
+        {isRevoked ? (
+          <Ban size={18} className="text-red-600" />
+        ) : (
+          <Check size={18} className="text-green-600" />
+        )}
+      </TableCell>
       <TableCell>{props.data.key}</TableCell>
       <TableCell>{props.data.title}</TableCell>
       <TableCell>{convertTTL(props.data.ttl)}</TableCell>
@@ -59,7 +74,11 @@ export const ScopesTableRow: FC<Props> = (props) => {
         >
           <DropdownMenuTrigger asChild>
             <HStack className="justify-end pr-5 [&>button]:min-w-[40px]">
-              <Button size="icon" variant="secondary">
+              <Button
+                size="icon"
+                variant="secondary"
+                className={cn(isRevoked && 'shadow-md')}
+              >
                 <Ellipsis size={18} />
               </Button>
             </HStack>
@@ -81,8 +100,8 @@ export const ScopesTableRow: FC<Props> = (props) => {
               Приложения
             </DropdownMenuItem>
             <DropdownMenuItem onClick={props.onRevokeScope}>
-              <Ban size={18} />
-              Отозвать доступ
+              {isRevoked ? <Undo2 size={18} /> : <Ban size={18} />}
+              {isRevoked ? 'Вернуть доступ' : 'Отозвать доступ'}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -25,6 +25,10 @@
   @apply hover:bg-accent/30;
 }
 
+.table__row[data-error='true'] {
+  @apply bg-red-50 hover:bg-red-50/60;
+}
+
 .table__row > td {
   @apply block max-w-full flex-1 overflow-hidden text-ellipsis whitespace-nowrap px-3 py-2;
 }

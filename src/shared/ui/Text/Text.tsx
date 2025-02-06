@@ -7,7 +7,7 @@ import { CurrencyIcon } from '../CurrencyIcon/CurrencyIcon';
 
 type AvailableComponents = React.ElementType<
   {},
-  'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label'
+  'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label' | 'div'
 >;
 type TextVariant = 'default' | 'error' | 'secondary' | 'primary';
 type TextWeight =
@@ -26,6 +26,7 @@ type TextProps<T extends AvailableComponents = 'p'> = PropsWithClassName &
     variant?: TextVariant;
     weight?: TextWeight;
     withCurrencyIcon?: boolean;
+    truncate?: boolean;
   } & ComponentProps<T>;
 
 export const Text = <T extends AvailableComponents = 'p'>(
@@ -38,6 +39,7 @@ export const Text = <T extends AvailableComponents = 'p'>(
     variant = 'default',
     weight = 'normal',
     as: Component = 'p',
+    truncate = false,
     ...otherProps
   } = props;
 
@@ -63,6 +65,7 @@ export const Text = <T extends AvailableComponents = 'p'>(
     <Component
       className={cn(
         'text-sm',
+        truncate && 'block truncate',
         weightClasses[weight],
         variantClasses[variant],
         className,
