@@ -6,6 +6,7 @@ export enum AppRoutes {
   SCOPES = 'scopes',
   TOKENS = 'tokens',
   MODERATION = 'moderation',
+  PROXY_ROUTES = 'proxyRoutes',
 
   /* Api routes */
   AUTH_LOGOUT = 'authLogout',

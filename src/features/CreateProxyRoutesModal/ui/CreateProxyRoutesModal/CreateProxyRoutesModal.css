@@ -1,0 +1,3 @@
+.create-route-form__method {
+  @apply h-full border-[2px] shadow-none transition-colors hover:bg-secondary/50;
+}

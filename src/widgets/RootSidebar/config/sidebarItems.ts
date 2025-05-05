@@ -4,6 +4,7 @@ import {
   KeyRound,
   LockKeyholeOpen,
   Wrench,
+  Replace,
 } from 'lucide-react';
 
 import { routeConfig } from '@/shared/config/router/routeConfig';
@@ -39,5 +40,10 @@ export const sidebarMenuAdminItems: RootSidebarItemType[] = [
     title: 'Токены',
     url: routeConfig.tokens,
     icon: KeyRound,
+  },
+  {
+    title: 'Proxy маршруты',
+    url: routeConfig.proxyRoutes,
+    icon: Replace,
   },
 ];

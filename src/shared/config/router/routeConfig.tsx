@@ -13,6 +13,7 @@ export const routeConfig: Record<AppRoutes, string> = {
   [AppRoutes.SCOPES]: '/scopes',
   [AppRoutes.TOKENS]: '/tokens',
   [AppRoutes.MODERATION]: '/on-moderation',
+  [AppRoutes.PROXY_ROUTES]: '/proxy-routes',
 
   /* Auth routes */
   [AppRoutes.SIGN_IN]: '/signin',

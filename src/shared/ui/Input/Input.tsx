@@ -7,16 +7,17 @@ import './input.css';
 
 type Props = React.ComponentProps<'input'> & {
   error?: string;
+  inputClassName?: string;
 };
 
 const Input = React.forwardRef<HTMLInputElement, Props>(
-  ({ className, type, error, ...props }, ref) => {
+  ({ className, inputClassName, type, error, ...props }, ref) => {
     return (
       <div className={cn('relative block', className)}>
         <div className="input__wrap" data-error={Boolean(error)}>
           <input
             type={type}
-            className="input"
+            className={cn('input', inputClassName)}
             ref={ref}
             autoComplete="off"
             {...props}
