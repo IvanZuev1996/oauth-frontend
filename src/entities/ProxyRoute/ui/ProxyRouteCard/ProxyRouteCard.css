@@ -1,5 +1,5 @@
 .proxy-card {
-  @apply cursor-pointer rounded-lg border px-4 py-2 transition-all hover:bg-secondary/50;
+  @apply cursor-pointer overflow-hidden rounded-lg border px-4 py-2 transition-all hover:bg-secondary/50;
 }
 
 .proxy-card:hover > svg {

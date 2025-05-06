@@ -1,4 +1,8 @@
-export type { ProxyRoute } from './model/types/proxyRoute';
+export type {
+  ProxyRoute,
+  CreateProxyRoutePayload,
+  UpdateProxyRoutePayload,
+} from './model/types/proxyRoute';
 
 export { ProxyRouteCard } from './ui/ProxyRouteCard/ProxyRouteCard';
 

@@ -19,12 +19,27 @@ const proxyRouteApi = rtkApi.injectEndpoints({
       }),
     }),
 
-    createProxyRoutes: builder.mutation<ProxyRoute[], CreateProxyRoutePayload>({
+    createProxyRoutes: builder.mutation<ProxyRoute, CreateProxyRoutePayload>({
       query: (body) => ({
         url: '/proxy',
         method: 'POST',
         body,
       }),
+      async onQueryStarted({ scopes }, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            proxyRouteApi.util.updateQueryData(
+              'getProxyRoutesList',
+              undefined,
+              (draft) => {
+                draft.count += 1;
+                draft.rows.push({ ...data, scopes });
+              },
+            ),
+          );
+        } catch (_) {}
+      },
     }),
 
     updateProxyRoute: builder.mutation<ProxyRoute, UpdateProxyRoutePayload>({
@@ -33,14 +48,47 @@ const proxyRouteApi = rtkApi.injectEndpoints({
         method: 'PATCH',
         body,
       }),
+      async onQueryStarted({ scopes }, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            proxyRouteApi.util.updateQueryData(
+              'getProxyRoutesList',
+              undefined,
+              (draft) => {
+                const route = draft.rows.find((r) => r.id === data.id);
+                if (!route) return;
+                route.method = data.method;
+                route.externalPath = data.externalPath;
+                route.name = data.name;
+                route.scopes = scopes;
+              },
+            ),
+          );
+        } catch (_) {}
+      },
     }),
 
     deleteProxyRoute: builder.mutation<{ deleted: boolean }, { id: number }>({
-      query: (body) => ({
-        url: '/proxy',
+      query: ({ id }) => ({
+        url: `/proxy/${id}`,
         method: 'DELETE',
-        body,
       }),
+      async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(
+            proxyRouteApi.util.updateQueryData(
+              'getProxyRoutesList',
+              undefined,
+              (draft) => {
+                draft.count -= 1;
+                draft.rows = draft.rows.filter((r) => r.id !== id);
+              },
+            ),
+          );
+        } catch (_) {}
+      },
     }),
   }),
 });

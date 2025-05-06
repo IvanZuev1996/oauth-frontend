@@ -11,6 +11,7 @@ export { ScopeStatusEnum } from './model/types/scope';
 
 /* UI */
 export { ScopesDotList } from './ui/ScopesDotList/ScopesDotList';
+export { CheckedScope } from './ui/CheckedScope/CheckedScope';
 
 /* Api */
 export {

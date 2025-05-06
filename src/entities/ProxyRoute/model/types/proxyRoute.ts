@@ -5,11 +5,10 @@ export interface ProxyRoute {
   name: string;
   method: RestMethods;
   externalPath: string;
+  scopes?: string[];
 }
 
-export type CreateProxyRoutePayload = {
-  routes: Omit<ProxyRoute, 'id'>[];
-};
+export type CreateProxyRoutePayload = Omit<ProxyRoute, 'id'>;
 
 export type UpdateProxyRoutePayload = CreateProxyRoutePayload & {
   routeId: number;

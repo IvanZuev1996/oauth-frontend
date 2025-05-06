@@ -13,9 +13,10 @@ import './ProxyRouteCard.css';
 
 type Props = {
   proxyRoute: ProxyRoute;
+  onEdit: () => void;
 };
 
-export const ProxyRouteCard: FC<Props> = ({ proxyRoute }) => {
+export const ProxyRouteCard: FC<Props> = ({ proxyRoute, onEdit }) => {
   const config: Record<RestMethods, string> = {
     GET: 'bg-green-600/5 border-green-600/20 hover:bg-green-600/10',
     POST: 'bg-yellow-700/5 border-yellow-700/20 hover:bg-yellow-700/10',
@@ -27,10 +28,12 @@ export const ProxyRouteCard: FC<Props> = ({ proxyRoute }) => {
   const className = config[proxyRoute.method];
 
   return (
-    <HStack className={cn('proxy-card', className)}>
+    <HStack onClick={onEdit} className={cn('proxy-card', className)}>
       <RestMethod method={proxyRoute.method} />
-      <VStack className="gap-0">
-        <Text weight="medium">{proxyRoute.name}</Text>
+      <VStack className="gap-0 overflow-hidden">
+        <Text weight="medium" className="w-full" truncate>
+          {proxyRoute.name}
+        </Text>
         <Text variant="secondary">{proxyRoute.externalPath}</Text>
       </VStack>
 

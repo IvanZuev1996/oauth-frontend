@@ -1,45 +1,48 @@
 import { FC } from 'react';
 
 import { cn } from '@/shared/lib/utils/cn';
-import { RestMethods } from '@/shared/types/general/general';
+import {
+  PropsWithClassName,
+  RestMethods,
+} from '@/shared/types/general/general';
 
 import { Text } from '../Text/Text';
 
-type Props = {
+type Props = PropsWithClassName & {
   method: RestMethods;
 };
 
-export const RestMethod: FC<Props> = ({ method }) => {
-  const config: Record<RestMethods, { label: string; className: string }> = {
+export const RestMethod: FC<Props> = ({ method, className }) => {
+  const config: Record<RestMethods, { label: string; extraClass: string }> = {
     GET: {
       label: 'GET',
-      className: 'text-green-600',
+      extraClass: 'text-green-600',
     },
     POST: {
       label: 'POST',
-      className: 'text-yellow-700',
+      extraClass: 'text-yellow-700',
     },
     PUT: {
       label: 'PUT',
-      className: 'text-blue-700',
+      extraClass: 'text-blue-700',
     },
     PATCH: {
       label: 'PATCH',
-      className: 'text-purple-700',
+      extraClass: 'text-purple-700',
     },
     DELETE: {
       label: 'DELETE',
-      className: 'text-red-700',
+      extraClass: 'text-red-700',
     },
   };
 
-  const { label, className } = config[method];
+  const { label, extraClass } = config[method];
 
   return (
     <Text
       as="span"
       weight="medium"
-      className={cn('w-[70px] text-sm uppercase', className)}
+      className={cn('w-[70px] text-sm uppercase', extraClass, className)}
     >
       {label}
     </Text>
