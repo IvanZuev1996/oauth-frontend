@@ -18,11 +18,22 @@ export const convertScopesToArray = (scopes: Scopes) => {
 };
 
 /**
- * @description Convert TTL to minutes
+ * @description Convert TTL to normal time format
  */
-export const convertTTL = (ttl: number) => {
-  if (ttl < 0) return ttl;
-  const minutes = Math.ceil(ttl / 60);
+export const convertTTL = (ttl: number): string | number => {
+  if (ttl < 0) return `${ttl} сек.`;
 
-  return minutes;
+  const totalMinutes = Math.ceil(ttl / 60);
+
+  const days = Math.floor(totalMinutes / 1440);
+  const hours = Math.floor((totalMinutes % 1440) / 60);
+  const minutes = totalMinutes % 60;
+
+  const parts: string[] = [];
+
+  if (days > 0) parts.push(`${days} д.`);
+  if (hours > 0) parts.push(`${hours} ч.`);
+  if (minutes > 0 || parts.length === 0) parts.push(`${minutes} мин`);
+
+  return parts.join(' ');
 };

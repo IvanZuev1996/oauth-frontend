@@ -37,13 +37,13 @@ export const sidebarMenuAdminItems: RootSidebarItemType[] = [
     icon: LockKeyholeOpen,
   },
   {
-    title: 'Токены',
-    url: routeConfig.tokens,
-    icon: KeyRound,
-  },
-  {
     title: 'Proxy маршруты',
     url: routeConfig.proxyRoutes,
     icon: Replace,
+  },
+  {
+    title: 'Токены',
+    url: routeConfig.tokens,
+    icon: KeyRound,
   },
 ];

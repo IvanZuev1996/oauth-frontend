@@ -1,7 +1,15 @@
-import { Ban, Check, Ellipsis, Settings, Undo2, Unplug } from 'lucide-react';
+import {
+  Ban,
+  Check,
+  Ellipsis,
+  Pencil,
+  Settings,
+  Trash2,
+  Undo2,
+} from 'lucide-react';
 import { FC, useState } from 'react';
 
-import { convertTTL, ScopeListItem, ScopeStatusEnum } from '@/entities/Scope';
+import { convertTTL, Scope, ScopeStatusEnum } from '@/entities/Scope';
 import { cn } from '@/shared/lib/utils/cn';
 import { Button } from '@/shared/ui/Button/Button';
 import {
@@ -22,8 +30,10 @@ type HeaderProps = {
 };
 type DataProps = {
   isHeader: false;
-  data: ScopeListItem;
+  data: Scope;
+  onEdit: () => void;
   onSeeDetails: () => void;
+  onDelete: () => void;
   onRevokeScope: () => void;
 };
 
@@ -40,7 +50,7 @@ export const ScopesTableRow: FC<Props> = (props) => {
         <TableCell>Ключ</TableCell>
         <TableCell>Название</TableCell>
         <TableCell>Время жизни (мин.)</TableCell>
-        <TableCell>Кол-во приложений</TableCell>
+        <TableCell>Обязательное подтверждение</TableCell>
         <TableCell className="!min-w-[80px] !max-w-[100px]"></TableCell>
       </TableRow>
     );
@@ -64,7 +74,7 @@ export const ScopesTableRow: FC<Props> = (props) => {
       <TableCell>{props.data.key}</TableCell>
       <TableCell>{props.data.title}</TableCell>
       <TableCell>{convertTTL(props.data.ttl)}</TableCell>
-      <TableCell>{200}</TableCell>
+      <TableCell>{props.data.requiresApproval ? 'Да' : 'Нет'}</TableCell>
 
       <TableCell className="!min-w-[80px] !max-w-[100px]">
         <DropdownMenu
@@ -91,17 +101,26 @@ export const ScopesTableRow: FC<Props> = (props) => {
           >
             <DropdownMenuLabel>Меню</DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={props.onEdit}>
+              <Pencil size={18} />
+              Редактировать
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={props.onSeeDetails}>
               <Settings size={18} />
               Подробнее
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Unplug size={18} />
-              Приложения
-            </DropdownMenuItem>
+
             <DropdownMenuItem onClick={props.onRevokeScope}>
               {isRevoked ? <Undo2 size={18} /> : <Ban size={18} />}
               {isRevoked ? 'Вернуть доступ' : 'Отозвать доступ'}
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+              className="scopes-table-scope__delete"
+              onClick={props.onDelete}
+            >
+              <Trash2 size={18} />
+              Удалить
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

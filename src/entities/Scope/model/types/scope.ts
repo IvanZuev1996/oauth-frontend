@@ -5,10 +5,11 @@ export interface Scope {
   ttl: number;
   isTtlRefreshable: boolean;
   status: ScopeStatusEnum;
-  description?: string;
   createdAt: Date;
   updatedAt: Date;
+}
 
+export interface ScopeDetails extends Scope {
   clientsCount?: number;
   service?: {
     id: number;
@@ -28,11 +29,11 @@ export enum ScopeStatusEnum {
 
 export interface CreateScopePayload
   extends Pick<Scope, 'title' | 'requiresApproval' | 'ttl'> {
-  serviceId: number;
   name: string;
-  title: string;
-  requiresApproval: boolean;
-  ttl: number;
+}
+
+export interface UpdateScopePayload extends Omit<CreateScopePayload, 'name'> {
+  scopeKey: string;
 }
 
 export interface DeleteScopePayload {

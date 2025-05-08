@@ -86,14 +86,6 @@ export const ScopeSheet: FC<Props> = (props) => {
               className="mt-3"
             />
             <FieldValue field="Название" value={data.title} variant="grid" />
-            {data.description && (
-              <FieldValue
-                field="Описание"
-                value={data.description}
-                variant="grid"
-                truncate={false}
-              />
-            )}
             <FieldValue
               field="Возможность обновления"
               value={data.isTtlRefreshable ? 'Да' : 'Нет'}

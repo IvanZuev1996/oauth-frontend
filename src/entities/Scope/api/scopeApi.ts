@@ -7,17 +7,15 @@ import {
   DeleteScopePayload,
   GetScopesPayload,
   Scope,
-  ScopeListItem,
+  ScopeDetails,
+  UpdateScopePayload,
 } from '../model/types/scope';
 
 const scopeApi = rtkApi.injectEndpoints({
   overrideExisting: true,
 
   endpoints: (builder) => ({
-    getScopesList: builder.query<
-      DataWithCounting<ScopeListItem>,
-      GetScopesPayload
-    >({
+    getScopesList: builder.query<DataWithCounting<Scope>, GetScopesPayload>({
       query: (params) => ({
         url: '/scopes',
         method: 'GET',
@@ -25,7 +23,7 @@ const scopeApi = rtkApi.injectEndpoints({
       }),
     }),
 
-    getScope: builder.query<Scope, { scopeKey: string }>({
+    getScope: builder.query<ScopeDetails, { scopeKey: string }>({
       query: ({ scopeKey }) => ({
         url: `/scopes/${scopeKey}`,
         method: 'GET',
@@ -38,6 +36,50 @@ const scopeApi = rtkApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            scopeApi.util.updateQueryData('getScopesList', {}, (draft) => {
+              draft.count += 1;
+              draft.rows.push(data);
+            }),
+          );
+        } catch (_) {}
+      },
+    }),
+
+    updateScope: builder.mutation<Scope, UpdateScopePayload>({
+      query: (body) => ({
+        url: '/scopes',
+        method: 'PATCH',
+        body,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            scopeApi.util.updateQueryData('getScopesList', {}, (draft) => {
+              const scope = draft.rows.find((item) => item.key === data.key);
+              if (!scope) return;
+              scope.title = data.title;
+              scope.ttl = data.ttl;
+            }),
+          );
+          dispatch(
+            scopeApi.util.updateQueryData(
+              'getScope',
+              { scopeKey: data.key },
+              (draft) => {
+                draft.title = data.title;
+                draft.ttl = data.ttl;
+                draft.status = data.status;
+                draft.requiresApproval = data.requiresApproval;
+              },
+            ),
+          );
+        } catch (_) {}
+      },
     }),
 
     updateScopeStatus: builder.mutation<
@@ -67,12 +109,24 @@ const scopeApi = rtkApi.injectEndpoints({
       },
     }),
 
-    deleteScope: builder.mutation<{ isDeleted: boolean }, DeleteScopePayload>({
+    deleteScope: builder.mutation<{ deleted: boolean }, DeleteScopePayload>({
       query: (body) => ({
         url: '/scopes',
         method: 'DELETE',
         body,
       }),
+      async onQueryStarted({ scopeKey }, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (!data.deleted) return;
+          dispatch(
+            scopeApi.util.updateQueryData('getScopesList', {}, (draft) => {
+              draft.count -= 1;
+              draft.rows = draft.rows.filter((item) => item.key !== scopeKey);
+            }),
+          );
+        } catch (_) {}
+      },
     }),
   }),
 });
@@ -86,5 +140,6 @@ export const {
   /* Mutations */
   useCreateScopeMutation,
   useDeleteScopeMutation,
+  useUpdateScopeMutation,
   useUpdateScopeStatusMutation,
 } = scopeApi;
