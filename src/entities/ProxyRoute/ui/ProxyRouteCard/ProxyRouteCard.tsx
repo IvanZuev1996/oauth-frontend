@@ -34,7 +34,9 @@ export const ProxyRouteCard: FC<Props> = ({ proxyRoute, onEdit }) => {
         <Text weight="medium" className="w-full" truncate>
           {proxyRoute.name}
         </Text>
-        <Text variant="secondary">{proxyRoute.externalPath}</Text>
+        <Text variant="secondary">
+          {proxyRoute.externalHost + proxyRoute.externalPath}
+        </Text>
       </VStack>
 
       <Pencil size={16} />

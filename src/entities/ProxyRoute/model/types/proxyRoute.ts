@@ -5,6 +5,7 @@ export interface ProxyRoute {
   name: string;
   method: RestMethods;
   externalPath: string;
+  externalHost: string;
   scopes?: string[];
 }
 

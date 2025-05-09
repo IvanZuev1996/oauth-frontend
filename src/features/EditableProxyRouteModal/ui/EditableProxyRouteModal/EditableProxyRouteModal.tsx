@@ -25,12 +25,14 @@ import { RestMethodSelect } from '@/shared/ui/RestMethodSelect/RestMethodSelect'
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
-import './EditableProxyRouteModal.css';
 import { EditableProxyRouteScopes } from '../EditableProxyRouteScopes/EditableProxyRouteScopes';
+
+import './EditableProxyRouteModal.css';
 
 const defaultFormData: CreateProxyRoutePayload = {
   method: 'GET',
   externalPath: '',
+  externalHost: '',
   name: '',
 };
 
@@ -57,6 +59,7 @@ export const EditableProxyRouteModal: FC<Props> = (props) => {
     if (!existData) return;
     setFormData({
       externalPath: existData.externalPath,
+      externalHost: existData.externalHost,
       method: existData.method,
       name: existData.name,
       scopes: existData.scopes,
@@ -131,19 +134,27 @@ export const EditableProxyRouteModal: FC<Props> = (props) => {
               placeholder="Название маршрута"
             />
           </HStack>
-          <div className="relative w-full">
-            <Link
-              size={16}
-              className="absolute left-3 top-1/2 z-[20] -translate-y-1/2 text-muted-foreground"
-            />
+          <HStack>
+            <div className="relative w-full">
+              <Link
+                size={16}
+                className="absolute left-3 top-1/2 z-[20] -translate-y-1/2 text-muted-foreground"
+              />
+              <Input
+                value={formData.externalHost}
+                onChange={(e) => onChangeForm('externalHost', e.target.value)}
+                placeholder="Хост (https://example.com)"
+                inputClassName="pl-[40px]"
+                className="w-full"
+              />
+            </div>
             <Input
               value={formData.externalPath}
               onChange={(e) => onChangeForm('externalPath', e.target.value)}
-              placeholder="Полный путь до ендпоинта"
-              inputClassName="pl-[40px]"
+              placeholder="Путь до эндпоинта (/users)"
               className="w-full"
             />
-          </div>
+          </HStack>
 
           <VStack className="mt-2">
             <Text as="span" weight="medium">
@@ -168,14 +179,23 @@ export const EditableProxyRouteModal: FC<Props> = (props) => {
               </Button>
             )}
 
-            <Button variant="secondary" className="px-5">
+            <Button
+              onClick={() => onOpenChangeHandler(false)}
+              variant="secondary"
+              className="px-5"
+            >
               Отмена
             </Button>
             <Button
               className="px-5"
               onClick={onCreateOrUpdate}
               isLoading={isLoading}
-              disabled={!formData.name || !formData.externalPath || isLoading}
+              disabled={
+                !formData.name ||
+                !formData.externalPath ||
+                !formData.externalHost ||
+                isLoading
+              }
             >
               {!existData ? (
                 <>
