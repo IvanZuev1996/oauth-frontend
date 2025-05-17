@@ -1,0 +1,3 @@
+.clients-form {
+  @apply w-full max-w-lg text-xl;
+}

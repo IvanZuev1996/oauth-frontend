@@ -1,17 +1,23 @@
 .input-group {
-  @apply flex w-full flex-col space-y-1.5;
-}
-.error {
-  @apply text-sm font-medium text-red-400;
-}
-
-.input-group > div {
-  @apply flex items-center justify-between;
+  @apply flex w-full flex-col gap-2;
 }
 
 .label-wrap {
   @apply h-5;
 }
+
+.label-wrap[data-description='true'] {
+  @apply mb-0;
+}
+
+.label-wrap[data-description='true'] + .input-group__description {
+  @apply mb-2;
+}
+
+.label-wrap > div {
+  @apply flex items-center justify-between;
+}
+
 .label-wrap > div {
   @apply flex items-center gap-1;
 }

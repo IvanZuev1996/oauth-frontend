@@ -1,9 +1,16 @@
-import { sidebarMenuBaseItems } from '../../config/sidebarItems';
+import { userRolesConfig } from '@/entities/User';
+
+import {
+  sidebarMenuAdminItems,
+  sidebarMenuBaseItems,
+} from '../../config/sidebarItems';
 
 export const getSidebarMenuItemsByUserRole = (roleId?: number) => {
-  // const userRole = userRolesConfig[roleId || 0];
-  // if (!roleId || !userRole) return [];
+  if (!roleId) return [];
 
-  // if (userRole === 'administrator') return sidebarMenuAdminItems;
+  const userRole = userRolesConfig[roleId];
+  if (!userRole) return [];
+
+  if (userRole === 'admin') return sidebarMenuAdminItems;
   return sidebarMenuBaseItems;
 };

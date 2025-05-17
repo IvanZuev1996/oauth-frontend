@@ -1,0 +1,11 @@
+.client-details {
+  @apply grid w-full grid-cols-1 gap-5 lg:grid-cols-2;
+}
+
+.client-details__loader {
+  @apply h-[300px] items-center justify-center;
+}
+
+.client-details__error {
+  @apply h-[150px] items-center justify-center gap-1 rounded-lg border border-dashed border-destructive/40;
+}

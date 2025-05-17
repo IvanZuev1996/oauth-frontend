@@ -12,6 +12,9 @@ const breakPointsMap: Record<Breakpoints, number> = {
   lg: LG_BREAKPOINT,
 };
 
+/**
+ * @description Check if device is mobile
+ */
 export function useIsMobile(size: Breakpoints = 'md') {
   const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
   const breakpoint = breakPointsMap[size];

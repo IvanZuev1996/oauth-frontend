@@ -7,8 +7,11 @@ import { useEffect, useState } from 'react';
 import { SignUpData } from '@/entities/User';
 import { useSignUpMutation } from '@/entities/User/api/userApi';
 import { routeConfig } from '@/shared/config/router/routeConfig';
+import { RedirectTargets } from '@/shared/const/router';
+import { useAppSearchParams } from '@/shared/lib/hooks/useAppSearchParams/useAppSearchParams';
 import { cn } from '@/shared/lib/utils/cn';
 import { isEmail } from '@/shared/lib/utils/isEmail';
+import { generateURIWithQueryParams } from '@/shared/lib/utils/links';
 import { unwrapError } from '@/shared/lib/utils/unwrapError';
 import { Button, buttonVariants } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input/Input';
@@ -28,6 +31,8 @@ const defaultSignUpData: SignUpData = {
 };
 
 export const SignUpForm = () => {
+  const queryParams = useAppSearchParams();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<SignUpFormErrors>();
   const [data, setData] = useState<SignUpData>(defaultSignUpData);
@@ -36,32 +41,40 @@ export const SignUpForm = () => {
   const [fetchSingUp, { error, isSuccess }] = useSignUpMutation();
 
   useEffect(() => {
-    if (error) {
-      const { data } = unwrapError(error);
-      data.errors.forEach((fieldError) => {
-        if (fieldError) {
-          setFieldError(
-            fieldError.property as keyof SignUpData,
-            fieldError.message,
-          );
-        }
-      });
-      setIsLoading(false);
-      return;
+    if (!isSuccess) return;
+    let redirectUrl = routeConfig.main;
+
+    if (queryParams.target === RedirectTargets.OAUTH) {
+      redirectUrl = generateURIWithQueryParams(
+        routeConfig.oauthAuthorize,
+        queryParams,
+      );
     }
 
-    if (isSuccess) {
-      window.location.href = routeConfig.main;
-      setIsLoading(false);
-    }
-  }, [error, isSuccess]);
+    window.location.href = redirectUrl;
+  }, [isSuccess, queryParams]);
 
   const onSignUp = async () => {
     const isValid = validateForm(data);
     if (!isValid) return;
 
     setIsLoading(true);
-    fetchSingUp(data);
+    const res = await fetchSingUp(data);
+
+    if (!res || res.error) {
+      const err = unwrapError(error);
+      if (err) {
+        err.data.errors.forEach((fieldError) => {
+          if (fieldError) {
+            setFieldError(
+              fieldError.property as keyof SignUpData,
+              fieldError.message,
+            );
+          }
+        });
+      }
+      setIsLoading(false);
+    }
   };
 
   const validateForm = (data: SignUpData) => {
@@ -123,49 +136,54 @@ export const SignUpForm = () => {
       </Text>
 
       <form action={onSignUp}>
-        <InputGroup label="Ваше имя" error={errors?.name}>
+        <InputGroup label="Ваше имя">
           <Input
             name="name"
             value={data.name}
             onChange={onChangeHandler}
             placeholder="Введите имя"
+            error={errors?.name}
           />
         </InputGroup>
 
-        <InputGroup label="Логин" error={errors?.login}>
+        <InputGroup label="Логин">
           <Input
             name="login"
             value={data.login}
             onChange={onChangeHandler}
             placeholder="Придумайте логин"
+            error={errors?.login}
           />
         </InputGroup>
 
-        <InputGroup label="Телеграм" error={errors?.telegram}>
+        <InputGroup label="Телеграм">
           <Input
             name="telegram"
             value={data.telegram}
             onChange={onChangeHandler}
             placeholder="Введите ваш телеграм"
+            error={errors?.telegram}
           />
         </InputGroup>
 
-        <InputGroup label="Email" error={errors?.email}>
+        <InputGroup label="Email">
           <Input
             name="email"
             value={data.email}
             onChange={onChangeHandler}
             placeholder="Введите ваш Email"
+            error={errors?.email}
           />
         </InputGroup>
 
-        <InputGroup label="Пароль" error={errors?.password}>
+        <InputGroup label="Пароль">
           <Input
             name="password"
             value={data.password}
             onChange={onChangeHandler}
             placeholder="Придумайте пароль"
             type="password"
+            error={errors?.password}
           />
         </InputGroup>
 
@@ -184,7 +202,10 @@ export const SignUpForm = () => {
             {isLoading ? 'Подождите немного...' : 'Зарегистрироваться'}
           </Button>
           <Link
-            href={routeConfig.signIn}
+            href={{
+              pathname: routeConfig.signIn,
+              query: queryParams,
+            }}
             className={cn(buttonVariants({ variant: 'secondary' }), 'w-full')}
           >
             Уже есть аккаунт? <ExternalLink size={18} />

@@ -17,3 +17,10 @@ export interface ErrorResponse {
   status: number;
   data: { errors: { property: string; message: string }[] };
 }
+
+export type FromToOptions = {
+  from: number;
+  to: number;
+};
+
+export type RestMethods = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';

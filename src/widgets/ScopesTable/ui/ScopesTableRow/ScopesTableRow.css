@@ -1,0 +1,11 @@
+.scopes-table-dropdown__content {
+  @apply min-w-[200px];
+}
+
+.scopes-table-dropdown__content > div[role='menuitem'] {
+  @apply cursor-pointer p-3;
+}
+
+.scopes-table-scope__delete {
+  @apply bg-destructive/5 text-destructive hover:!bg-destructive/10 hover:!text-destructive;
+}

@@ -1,3 +1,67 @@
-.table-ui__wrapper {
-  @apply w-full gap-0 overflow-x-auto rounded-sm border bg-background;
+.table-wrapper {
+  @apply w-full gap-0 overflow-x-auto bg-background;
+}
+.table {
+  @apply w-max min-w-full gap-0;
+}
+
+.table__row {
+  @apply relative flex w-full items-center gap-2 border-b py-1 pl-2 text-sm transition-all;
+}
+
+.table__row:not([data-header='true']):last-child {
+  @apply rounded-b-md;
+}
+
+.table__row[data-header='true'] {
+  @apply rounded-t-md border-b bg-secondary font-semibold;
+}
+
+.table__row:not([data-header='true'])[data-focused='true'] {
+  @apply bg-accent;
+}
+
+.table__row:not([data-header='true']) {
+  @apply hover:bg-accent/30;
+}
+
+.table__row[data-error='true'] {
+  @apply bg-red-50 hover:bg-red-50/60;
+}
+
+.table__row > td {
+  @apply block max-w-full flex-1 overflow-hidden text-ellipsis whitespace-nowrap px-3 py-2;
+}
+
+tbody .table__row:last-child {
+  @apply border-none;
+}
+
+.table__row__empty {
+  @apply flex h-[200px] w-full !cursor-default items-center justify-center gap-1 hover:!bg-background;
+}
+
+.table__row__empty > td {
+  @apply flex flex-col items-center justify-center;
+}
+
+.table__row__bg {
+  @apply absolute right-0 top-[-17px] h-[50px] w-[80px] bg-accent opacity-0 blur transition-opacity;
+}
+.table__row:not([data-header='true']):hover .table__row__bg {
+  @apply opacity-100;
+}
+.table__row:not([data-header='true']):hover td.arrow-cell > svg {
+  @apply translate-x-2 opacity-100;
+}
+
+.table__row td.arrow-cell > svg {
+  @apply absolute right-[40px] top-0 -translate-x-2 opacity-0 transition-all;
+}
+.table__row td.arrow-cell {
+  @apply absolute right-0;
+}
+
+.table__row > td:not(:first-child) {
+  @apply min-w-[150px];
 }

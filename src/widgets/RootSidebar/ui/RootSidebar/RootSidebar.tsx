@@ -26,7 +26,13 @@ export const RootSidebar = () => {
   const sidebarItems = getSidebarMenuItemsByUserRole(user?.roleId);
 
   const getActiveState = (path: string) => {
-    if (pathname?.includes('clients') && path === '/') return true;
+    if (
+      pathname?.includes('clients') &&
+      !pathname?.includes('add') &&
+      path === '/'
+    ) {
+      return true;
+    }
     return pathname === path;
   };
 

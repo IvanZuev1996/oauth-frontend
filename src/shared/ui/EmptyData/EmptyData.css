@@ -1,0 +1,7 @@
+.empty-data {
+  @apply flex min-h-[120px] w-full flex-col items-center justify-center gap-2 whitespace-pre-wrap p-2 text-center text-sm;
+}
+
+.empty-data__bordered {
+  @apply rounded-lg border border-dashed opacity-60 transition-opacity hover:opacity-100;
+}

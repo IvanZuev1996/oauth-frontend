@@ -3,7 +3,6 @@ export { userRolesConfig } from './config/userRolesConfig';
 
 /* Lib */
 export { useUserRole } from './lib/hooks/useUserRole/useUserRole';
-export { useUserRoleName } from './lib/hooks/useUserRoleName/useUserRoleName';
 
 /* Model */
 export { getUserSelector } from './model/selectors/user';

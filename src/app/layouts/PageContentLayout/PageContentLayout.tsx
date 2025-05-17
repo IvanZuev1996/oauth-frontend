@@ -9,7 +9,7 @@ export const PageContentLayout: FC<Props> = ({ title, children }) => {
   return (
     <>
       {title && <h1>{title}</h1>}
-      {children}
+      {title ? <section>{children}</section> : children}
     </>
   );
 };

@@ -4,6 +4,7 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { cn } from '@/shared/lib/utils/cn';
 
 import { Label } from '../Label/Label';
+import { Text } from '../Text/Text';
 import {
   Tooltip,
   TooltipContent,
@@ -15,9 +16,9 @@ import './InputGroup.css';
 
 type Props = {
   children: React.ReactNode;
-  htmlFor?: string;
   label: string;
-  error?: string;
+  description?: string;
+  htmlFor?: string;
   className?: string;
   helpText?: string;
 };
@@ -26,29 +27,31 @@ export const InputGroup: React.FC<Props> = ({
   children,
   htmlFor,
   label,
-  error,
-  className,
   helpText,
+  description,
+  className,
 }) => {
   return (
     <div className={cn('input-group', className)}>
-      <div className="label-wrap">
-        <div>
-          <Label htmlFor={htmlFor}>{label}</Label>
-          {helpText && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <BsQuestionCircle size={14} className="text-primary" />
-                </TooltipTrigger>
-                <TooltipContent>{helpText}</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-        </div>
+      <div className="label-wrap" data-description={!!description}>
+        <Label htmlFor={htmlFor}>{label}</Label>
+        {helpText && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <BsQuestionCircle size={14} className="text-primary" />
+              </TooltipTrigger>
+              <TooltipContent>{helpText}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
       </div>
+      {description && (
+        <Text variant="secondary" className="input-group__description">
+          {description}
+        </Text>
+      )}
       {children}
-      <span className="error">{error}</span>
     </div>
   );
 };

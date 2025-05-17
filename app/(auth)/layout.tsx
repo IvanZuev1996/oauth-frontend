@@ -1,10 +1,9 @@
 import { Montserrat } from 'next/font/google';
 
 import { MainProvider } from '@/app/providers/MainProvider';
-import { VStack } from '@/shared/ui/Stack';
+import { WithAuthBg } from '@/shared/ui/WithAuthBg/WithAuthBg';
 
 import '../../src/app/styles/index.css';
-import './auth.css';
 
 const montserrat = Montserrat({
   subsets: ['cyrillic'],
@@ -19,10 +18,9 @@ export default async function RootLayout({
   return (
     <html className={montserrat.variable} lang="ru">
       <body>
-        <VStack className="auth-page">
+        <WithAuthBg>
           <MainProvider>{children}</MainProvider>
-          <div className="auth-page__bg"></div>
-        </VStack>
+        </WithAuthBg>
       </body>
     </html>
   );

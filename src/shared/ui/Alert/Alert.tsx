@@ -10,7 +10,7 @@ const alertVariants = cva(
       variant: {
         default: 'bg-background text-foreground',
         destructive:
-          'border-red-200 bg-red-100/50 dark:bg-red-900/50 dark:border-red-400/50',
+          'border-red-200 bg-red-100/50 text-red-700 dark:bg-red-900/50 dark:border-red-400/50',
         warning:
           'border-orange-200 bg-orange-100/50 dark:bg-orange-900/20 dark:border-orange-400/20',
         success:
@@ -23,17 +23,19 @@ const alertVariants = cva(
   },
 );
 
-const Alert = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
->(({ className, variant, ...props }, ref) => (
-  <div
-    ref={ref}
-    role="alert"
-    className={cn(alertVariants({ variant }), className)}
-    {...props}
-  />
-));
+type AlertProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof alertVariants>;
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  ({ className, variant, ...props }, ref) => (
+    <div
+      ref={ref}
+      role="alert"
+      className={cn(alertVariants({ variant }), className)}
+      {...props}
+    />
+  ),
+);
 Alert.displayName = 'Alert';
 
 const AlertTitle = React.forwardRef<
@@ -60,4 +62,4 @@ const AlertDescription = React.forwardRef<
 ));
 AlertDescription.displayName = 'AlertDescription';
 
-export { Alert, AlertDescription, AlertTitle };
+export { Alert, AlertDescription, AlertTitle, type AlertProps };

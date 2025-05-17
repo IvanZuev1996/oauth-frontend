@@ -3,7 +3,7 @@ import { MainPage } from '@/pages/MainPage';
 
 export default function Main() {
   return (
-    <PageContentLayout title="Мои приложения">
+    <PageContentLayout>
       <MainPage />
     </PageContentLayout>
   );
