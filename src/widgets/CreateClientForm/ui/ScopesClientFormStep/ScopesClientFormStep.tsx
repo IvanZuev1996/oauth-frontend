@@ -1,8 +1,9 @@
-import { clientScopes } from '@/shared/config/scopes/scopesConfig';
+import { useGetScopesListQuery } from '@/entities/Scope';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/hooks/useAppSelector/useAppSelector';
 import { Button } from '@/shared/ui/Button/Button';
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
+import { Loader } from '@/shared/ui/Loader/Loader';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 
@@ -12,6 +13,12 @@ import { createClientFormActions } from '../../model/slice/createClientFormSlice
 export const ScopesClientFormStep = () => {
   const dispatch = useAppDispatch();
   const formData = useAppSelector(getCreateClientFormDataSelector);
+
+  const {
+    data: scopes,
+    isLoading,
+    isFetching,
+  } = useGetScopesListQuery({ query: undefined });
 
   const onChangeScopes = (scopeKey: string) => {
     if (formData.scope.includes(scopeKey)) {
@@ -45,33 +52,29 @@ export const ScopesClientFormStep = () => {
         Выберите данные, которые необходимы приложению:
       </Text>
       <VStack className="mt-3">
-        {Object.entries(clientScopes).map(([serviceKey, service], idx) => (
-          <VStack key={idx}>
-            <Text className="text-base" weight="medium">
-              {service.name}
-            </Text>
-            {service.scopes.map((scope) => {
-              const scopeKey = `${serviceKey}:${scope.key}`;
-              return (
-                <HStack className="items-start pl-2" key={scope.key}>
-                  <Checkbox
-                    id={scopeKey}
-                    name={scopeKey}
-                    checked={formData.scope.includes(scopeKey)}
-                    onCheckedChange={() => onChangeScopes(scopeKey)}
-                    className="mt-1 rounded-[4px]"
-                  />
-                  <VStack className="gap-0">
-                    <Text as="label" htmlFor={scopeKey} className="text-base">
-                      {scope.name}
-                    </Text>
-                    <Text variant="secondary">{scopeKey}</Text>
-                  </VStack>
-                </HStack>
-              );
-            })}
-          </VStack>
-        ))}
+        {isLoading || isFetching ? (
+          <HStack className="h-[200px] justify-center">
+            <Loader />
+          </HStack>
+        ) : (
+          scopes?.rows.map((scope) => (
+            <HStack className="items-start" key={scope.key}>
+              <Checkbox
+                id={scope.key}
+                name={scope.key}
+                checked={formData.scope.includes(scope.key)}
+                onCheckedChange={() => onChangeScopes(scope.key)}
+                className="mt-1 rounded-[4px]"
+              />
+              <VStack className="gap-0">
+                <Text as="label" htmlFor={scope.key} className="text-base">
+                  {scope.title}
+                </Text>
+                <Text variant="secondary">{scope.key}</Text>
+              </VStack>
+            </HStack>
+          ))
+        )}
       </VStack>
 
       <VStack className="mt-3">
