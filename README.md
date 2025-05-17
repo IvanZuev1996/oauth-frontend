@@ -1,12 +1,12 @@
-# OAuth 2.0 Client Dashboard
+# 🎯 OAuth 2.0 Client Dashboard
 
-## Overview
+## 📋 Overview
 
 OAuth 2.0 Client Dashboard is a user-friendly portal designed to handle OAuth 2.0 authorization for third-party applications. It allows users to authenticate and authorize access to their resources securely, providing necessary scopes and tokens to external applications.
 
 This client connects with an OAuth 2.0 authorization server to provide smooth and efficient integration with various third-party services, ensuring secure authentication and authorization processes.
 
-## Features
+## ✨ Features
 
 - Secure OAuth 2.0 authentication and authorization flow.
 - User interface for managing OAuth consent and scope approvals.
@@ -14,7 +14,7 @@ This client connects with an OAuth 2.0 authorization server to provide smooth an
 - View detailed permissions granted to each connected application.
 - Supports token issuance, including access tokens and refresh tokens.
 
-## Installation
+## ⚙️ Installation
 
 ### Prerequisites
 
@@ -24,7 +24,7 @@ Ensure you have the following tools installed:
 - npm (v6 or higher)
 - A running OAuth 2.0 authorization server
 
-### Steps
+### 🚀 Steps
 
 1. Clone this repository:
 
